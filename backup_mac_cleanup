@@ -1,0 +1,55 @@
+#!/bin/bash
+
+user=$(whoami)
+myHome=/Users/$user/
+
+downloads=$myHome/Downloads
+downloadsImageFolder=$downloads/images
+downloadsPDFFolder=$downloads/pdfs
+
+desktop=$myHome/Desktop
+moveFolder=$myHome/Desktop/Vivek
+
+desktopScreenshotFolder=$moveFolder/Screenshots
+desktopPDFFolder=$moveFolder/SomePDFs
+
+cleanDesktop(){
+    moveImages $desktop $desktopScreenshotFolder
+    movePDFs $desktop $desktopPDFFolder
+    echo "Cleaned your desktop :)"
+}
+
+cleanDownloads(){
+    moveImages $downloads $downloadsImageFolder
+    movePDFs $downloads $downloadsPDFFolder
+    echo "Cleaned your Downloads Folder :)"
+}
+
+moveTo(){
+    mv $1 $2 2>/dev/null
+}
+
+moveImages(){
+    from=$1
+    to=$2
+    moveTo "$from/*.jpg" "$to" 
+    moveTo "$from/*.Jpg" "$to" 
+    moveTo "$from/*.JPG" "$to" 
+    moveTo "$from/*.png" "$to" 
+    moveTo "$from/*.PNG" "$to"
+}
+
+movePDFs(){
+    from=$1
+    to=$2
+    moveTo "$from/*pdf" "$to"
+    moveTo "$from/*PDF" "$to"
+}
+
+main(){
+    cleanDesktop
+    cleanDownloads
+}
+
+
+main

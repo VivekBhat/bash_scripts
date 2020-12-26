@@ -1,0 +1,21 @@
+#!/bin/bash
+
+myHome=/mnt/c/Users/bhatvive
+desktop=$myHome/Desktop
+screenshotFolder=/mnt/c/Users/bhatvive/Desktop/Vivek/Screenshots
+pdfFolder=/mnt/c/Users/bhatvive/Desktop/Vivek/SomePDFs
+
+moveTo(){
+    mv $1 $2 2>/dev/null   
+}
+
+main(){
+    moveTo "$desktop/*.jpg" "$screenshotFolder" 
+    moveTo "$desktop/*.Jpg" "$screenshotFolder" 
+    moveTo "$desktop/*.png" "$screenshotFolder" 
+    moveTo "$desktop/*.PNG" "$screenshotFolder"
+    moveTo "$desktop/*pdf" "$pdfFolder"
+    moveTo "$desktop/*PDF" "$pdfFolder"
+}
+
+main

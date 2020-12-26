@@ -1,0 +1,99 @@
+#!/bin/bash
+myHome=$1
+
+downloads=$myHome/Downloads
+downloadsImageFolder=$downloads/images
+downloadsPDFFolder=$downloads/pdfs
+downloadsZipFolder=$downloads/zips
+downloadsDocsFolder=$downloads/documents
+downloadsConfigFolder=$downloads/configs
+
+desktop=$myHome/Desktop
+moveFolder=$desktop/Misc
+
+desktopScreenshotFolder=$moveFolder/Images
+desktopPDFFolder=$moveFolder/SomePDFs
+
+cleanDesktop(){
+    moveImages $desktop $desktopScreenshotFolder
+    movePDFs $desktop $desktopPDFFolder
+}
+
+cleanDownloads(){
+    moveImages $downloads $downloadsImageFolder
+    movePDFs $downloads $downloadsPDFFolder
+    moveZIPs $downloads $downloadsZipFolder
+    moveMSDocs $downloads $downloadsDocsFolder
+    moveConfigs $downloads $downloadsConfigFolder
+    removeCalendarInvites
+    removeHTMLDownloads
+    removeExecutables
+}
+
+removeCalendarInvites(){
+    rm -rf *.ics   
+}
+
+removeHTMLDownloads(){
+    rm -rf *.html   
+}
+
+removeExecutables(){
+    rm -rf *.exe   
+}
+
+moveTo(){
+    mkdir -p $2 
+    mv $1 $2 2>/dev/null
+}
+
+moveImages(){
+    from=$1
+    to=$2
+    moveTo "$from/*.jpg" "$to" 
+    moveTo "$from/*.Jpg" "$to" 
+    moveTo "$from/*.jpeg" "$to" 
+    moveTo "$from/*.JPEG" "$to" 
+    moveTo "$from/*.JPG" "$to" 
+    moveTo "$from/*.png" "$to" 
+    moveTo "$from/*.PNG" "$to"
+}
+
+movePDFs(){
+    from=$1
+    to=$2
+    moveTo "$from/*pdf" "$to"
+    moveTo "$from/*PDF" "$to"
+}
+
+moveConfigs(){
+    from=$1
+    to=$2
+    moveTo "$from/*xml" "$to"
+    moveTo "$from/*json" "$to"
+    moveTo "$from/*yaml" "$to"
+    moveTo "$from/*yml" "$to"
+}
+moveMSDocs(){
+    from=$1
+    to=$2
+    moveTo "$from/*docx" "$to"
+    moveTo "$from/*doc" "$to"
+    moveTo "$from/*pptx" "$to"
+}
+
+moveZIPs(){
+    from=$1
+    to=$2
+    moveTo "$from/*zip" "$to"
+    moveTo "$from/*ZIP" "$to"
+}
+
+main(){
+    echo "Cleaning in progress..."
+    cleanDesktop
+    cleanDownloads
+    echo "Cleaning done!"
+}
+
+main
