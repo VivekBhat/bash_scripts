@@ -147,17 +147,6 @@ alias lla='ls -la'
 
 DOCKER_ID_USER="vivekbhat"
 
-export AWS_ACCESS_KEY="AKIAQN4XIN6OPIFYL27H"
-export AWS_SECRET_KEY="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"
-
-export COINBASE_API_KEY="VREYe8IJnKVJjllf"
-export COINBASE_API_SECRET="DF6Geu8qljKTnLAOjfjqbyKUdJZQEHuZ"
-
-export BITTREX_API_KEY="a0e3c0ea743b4e559c570bcd39fd236a"
-export BITTREX_API_SECRET="6e8c23ca1a1b492a97f9782ff11ae2b6"
-
-export ALEXA="amzn1.ask.skill.584432f0-752c-4cf9-aa20-1c1792d3e702"
-
 
 export http_proxy=http://proxy-chain.intel.com:911
 export https_proxy=http://proxy-chain.intel.com:912
@@ -171,11 +160,3 @@ export FTP_PROXY=http://proxy-chain.intel.com:911
 export SOCKS_PROXY=http://proxy-us.intel.com:1080
 export NO_PROXY=intel.com,.intel.com,localhost,127.0.0.1
 export PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '
-
-export RPA_DB_USERNAME=retailpromot_0_ro
-export RPA_DB_PASSWORD=tRfW6B1Ev0qG5I0
-export RPA_DB_NAME=retailpromotionsanalytics_tes
-export RPA_DB_HOST=postgres5078-us-fm-in.icloud.intel.com
-
-# export DOCKER_CERT_PATH=$myHome/.docker/machine/certs
-# export DOCKER_TLS_VERIFY=1
