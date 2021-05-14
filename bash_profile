@@ -1,5 +1,5 @@
 #!/bin/bash
-export bashProfileVersion="3.0.1"
+export bashProfileVersion="3.1.0"
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -20,7 +20,6 @@ NC='\033[0m'
 if [ "$(uname)" == "Darwin" ]; then
     echo "This is Vivek's Mac"
     myHome=/Users/bhatvive
-	scriptsFolder=$myHome/Documents/Projects/bash_scripts
 	folder="Mac"        
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	export DOCKER_HOST=tcp://localhost:2375
@@ -30,10 +29,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		folder="Workstation"	
 	else
 		folder="Windows"
+		myHome=/mnt/c/Users/bhatvive
 	fi
 	echo "This is Ubuntu $folder"
 fi
-
+scriptsFolder=$myHome/Documents/Projects/bash_scripts
 runCleanupScripts(){
 	$scriptsFolder/cleanup $myHome
 }
