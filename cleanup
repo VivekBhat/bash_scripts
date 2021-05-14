@@ -13,13 +13,22 @@ moveFolder=$desktop/Misc
 
 desktopScreenshotFolder=$moveFolder/Images
 desktopPDFFolder=$moveFolder/SomePDFs
+desktopDocsFolder=$moveFolder/documents
+desktopZipFolder=$moveFolder/zips
+desktopConfigFolder=$moveFolder/configs
 
 cleanDesktop(){
+    echo "Organizing desktop folder.."
     moveImages $desktop $desktopScreenshotFolder
     movePDFs $desktop $desktopPDFFolder
+    moveMSDocs $desktop $desktopDocsFolder
+    moveZIPs $desktop $downloadsZipFolder
+    moveConfigs $desktop $desktopConfigFolder
+
 }
 
 cleanDownloads(){
+    echo "Organizing downloads folder.."
     moveImages $downloads $downloadsImageFolder
     movePDFs $downloads $downloadsPDFFolder
     moveZIPs $downloads $downloadsZipFolder
@@ -78,6 +87,9 @@ moveMSDocs(){
     from=$1
     to=$2
     moveTo "$from/*docx" "$to"
+    moveTo "$from/*txt" "$to"
+    moveTo "$from/*csv" "$to"
+    moveTo "$from/*xlsx" "$to"    
     moveTo "$from/*doc" "$to"
     moveTo "$from/*pptx" "$to"
 }
