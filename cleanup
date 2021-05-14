@@ -68,6 +68,8 @@ moveImages(){
     moveTo "$from/*.JPG" "$to" 
     moveTo "$from/*.png" "$to" 
     moveTo "$from/*.PNG" "$to"
+    moveTo "$from/*.heic" "$to" 
+    moveTo "$from/*.HEIC" "$to"
 }
 
 movePDFs(){
