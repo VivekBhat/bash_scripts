@@ -1,5 +1,5 @@
 #!/bin/bash
-export bashProfileVersion="3.1.1"
+export bashProfileVersion="3.2.0"
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31

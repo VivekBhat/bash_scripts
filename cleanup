@@ -2,20 +2,20 @@
 myHome=$1
 
 downloads=$myHome/Downloads
-downloadsImageFolder=$downloads/images
-downloadsPDFFolder=$downloads/pdfs
-downloadsZipFolder=$downloads/zips
-downloadsDocsFolder=$downloads/documents
-downloadsConfigFolder=$downloads/configs
+downloadsImageFolder=$downloads/Images
+downloadsPDFFolder=$downloads/Pdfs
+downloadsZipFolder=$downloads/Zips
+downloadsDocsFolder=$downloads/Documents
+downloadsConfigFolder=$downloads/Configs
 
 desktop=$myHome/Desktop
 moveFolder=$desktop/Misc
 
 desktopScreenshotFolder=$moveFolder/Images
 desktopPDFFolder=$moveFolder/SomePDFs
-desktopDocsFolder=$moveFolder/documents
-desktopZipFolder=$moveFolder/zips
-desktopConfigFolder=$moveFolder/configs
+desktopDocsFolder=$moveFolder/Documents
+desktopZipFolder=$moveFolder/Zips
+desktopConfigFolder=$moveFolder/Configs
 
 cleanDesktop(){
     echo "Organizing desktop folder.."
@@ -24,7 +24,9 @@ cleanDesktop(){
     moveMSDocs $desktop $desktopDocsFolder
     moveZIPs $desktop $downloadsZipFolder
     moveConfigs $desktop $desktopConfigFolder
-
+    removeCalendarInvites $desktop
+    removeHTMLDownloads $desktop
+    removeExecutables $desktop
 }
 
 cleanDownloads(){
@@ -34,21 +36,21 @@ cleanDownloads(){
     moveZIPs $downloads $downloadsZipFolder
     moveMSDocs $downloads $downloadsDocsFolder
     moveConfigs $downloads $downloadsConfigFolder
-    removeCalendarInvites
-    removeHTMLDownloads
-    removeExecutables
+    removeCalendarInvites $downloads
+    removeHTMLDownloads $downloads
+    removeExecutables $downloads
 }
 
 removeCalendarInvites(){
-    rm -rf *.ics   
+    rm -rf $1/*.ics   
 }
 
 removeHTMLDownloads(){
-    rm -rf *.html   
+    rm -rf $1/*.html   
 }
 
 removeExecutables(){
-    rm -rf *.exe   
+    rm -rf $1/*.exe   
 }
 
 moveTo(){
@@ -82,6 +84,7 @@ moveConfigs(){
     moveTo "$from/*json" "$to"
     moveTo "$from/*yaml" "$to"
     moveTo "$from/*yml" "$to"
+    moveTo "$from/*.properties" "$to"
 }
 moveMSDocs(){
     from=$1
