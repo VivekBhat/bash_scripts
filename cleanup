@@ -17,28 +17,24 @@ desktopDocsFolder=$moveFolder/Documents
 desktopZipFolder=$moveFolder/Zips
 desktopConfigFolder=$moveFolder/Configs
 
+cleaning(){
+    moveImages $1 "$2/Images"
+    movePDFs $1 "$2/Pdfs"
+    moveMSDocs $1 "$2/Docs"
+    moveZIPs $1 "$2/Zips"
+    moveConfigs $1 "$2/Configs"
+    removeCalendarInvites $1
+    removeHTMLDownloads $1
+    removeExecutables $1
+}
 cleanDesktop(){
     echo "Organizing desktop folder.."
-    moveImages $desktop $desktopScreenshotFolder
-    movePDFs $desktop $desktopPDFFolder
-    moveMSDocs $desktop $desktopDocsFolder
-    moveZIPs $desktop $downloadsZipFolder
-    moveConfigs $desktop $desktopConfigFolder
-    removeCalendarInvites $desktop
-    removeHTMLDownloads $desktop
-    removeExecutables $desktop
+    cleaning $desktop $desktop/Misc
 }
 
 cleanDownloads(){
     echo "Organizing downloads folder.."
-    moveImages $downloads $downloadsImageFolder
-    movePDFs $downloads $downloadsPDFFolder
-    moveZIPs $downloads $downloadsZipFolder
-    moveMSDocs $downloads $downloadsDocsFolder
-    moveConfigs $downloads $downloadsConfigFolder
-    removeCalendarInvites $downloads
-    removeHTMLDownloads $downloads
-    removeExecutables $downloads
+    cleaning $downloads $downloads   
 }
 
 removeCalendarInvites(){
@@ -110,6 +106,7 @@ main(){
     echo "Cleaning in progress..."
     cleanDesktop
     cleanDownloads
+    # cleaning 
     echo "Cleaning done!"
 }
 

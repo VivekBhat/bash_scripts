@@ -1,5 +1,5 @@
 #!/bin/bash
-export bashProfileVersion="3.2.0"
+export bashProfileVersion="3.2.2"
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -91,8 +91,8 @@ subl(){
 
 prof(){
 	echo "Opening Visual Studio Code to edit the bash profile"
-	desktop 1>/dev/null
-	vscode Misc/bash_scripts 1>/dev/null
+	cd $scriptsFolder
+	vscode . 1>/dev/null
 }
 
 #--------------------------------------
