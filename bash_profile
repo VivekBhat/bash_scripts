@@ -1,5 +1,5 @@
 #!/bin/bash
-export bashProfileVersion="3.2.2"
+export bashProfileVersion="3.2.4"
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -33,7 +33,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	fi
 	echo "This is Ubuntu $folder"
 fi
-scriptsFolder=$myHome/Documents/Projects/bash_scripts
+projectsFolder=$myHome/Documents/Projects/
+scriptsFolder=$projectsFolder/bash_scripts
 runCleanupScripts(){
 	$scriptsFolder/cleanup $myHome
 }
@@ -58,10 +59,17 @@ desktop () {
 #--------------------------------------
 
 cdo () {
-	cd $storage/Documents/Projects/CDO/$folder
-	echo "Moved to CDO folder :) "
+	openFolder "cdo "
 }
 
+ltd () {
+	openFolder "ltd "
+}
+
+openFolder(){
+	cd $projectsFolder/$1
+	echo "Moved to $1folder :) "
+}
 #--------------------------------------
 # Function to open Visual studio code
 #--------------------------------------
