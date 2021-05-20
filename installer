@@ -1,0 +1,4 @@
+cp bash_profile ~/.bash_profile
+chmod +x ~/.bash_profile
+source ~/.bash_profile
+echo "Bash Profile Version: $bashProfileVersion"
