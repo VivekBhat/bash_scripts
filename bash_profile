@@ -1,5 +1,5 @@
 #!/bin/bash
-export bashProfileVersion="3.2.4"
+export bashProfileVersion="3.2.5"
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -160,11 +160,11 @@ export http_proxy=http://proxy-chain.intel.com:911
 export https_proxy=http://proxy-chain.intel.com:912
 export ftp_proxy=http://proxy-chain.intel.com:911
 export socks_proxy=http://proxy-us.intel.com:1080
-export no_proxy=intel.com,.intel.com,localhost,127.0.0.1
+export no_proxy=*intel.com,.intel.com,localhost,127.0.0.1
 
 export HTTP_PROXY=http://proxy-chain.intel.com:911
 export HTTPS_PROXY=http://proxy-chain.intel.com:912
 export FTP_PROXY=http://proxy-chain.intel.com:911
 export SOCKS_PROXY=http://proxy-us.intel.com:1080
-export NO_PROXY=intel.com,.intel.com,localhost,127.0.0.1
+export NO_PROXY=*intel.com,.intel.com,localhost,127.0.0.1
 export PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '

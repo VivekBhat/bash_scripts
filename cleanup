@@ -26,7 +26,9 @@ cleaning(){
     removeCalendarInvites $1
     removeHTMLDownloads $1
     removeExecutables $1
+    removeMicrosoftInstallers $1
 }
+
 cleanDesktop(){
     echo "Organizing desktop folder.."
     cleaning $desktop $desktop/Misc
@@ -39,6 +41,10 @@ cleanDownloads(){
 
 removeCalendarInvites(){
     rm -rf $1/*.ics   
+}
+
+removeMicrosoftInstallers(){
+    rm -rf $1/*.msi   
 }
 
 removeHTMLDownloads(){
