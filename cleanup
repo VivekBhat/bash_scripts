@@ -23,10 +23,12 @@ cleaning(){
     moveMSDocs $1 "$2/Docs"
     moveZIPs $1 "$2/Zips"
     moveConfigs $1 "$2/Configs"
+    moveVideos $1 "$2/Videos"
+    moveAudio $1 "$2/Videos"
     removeCalendarInvites $1
     removeHTMLDownloads $1
     removeExecutables $1
-    removeMicrosoftInstallers $1
+    removeInstallers $1
 }
 
 cleanDesktop(){
@@ -43,8 +45,9 @@ removeCalendarInvites(){
     rm -rf $1/*.ics   
 }
 
-removeMicrosoftInstallers(){
+removeInstallers(){
     rm -rf $1/*.msi   
+    rm -rf $1/*.dmg
 }
 
 removeHTMLDownloads(){
@@ -58,6 +61,15 @@ removeExecutables(){
 moveTo(){
     mkdir -p $2 
     mv $1 $2 2>/dev/null
+}
+moveAudio(){
+    from=$1
+    to=$2
+    moveTo "$from/*.mp3" "$to" 
+    moveTo "$from/*.MP3" "$to" 
+    moveTo "$from/*.wav" "$to" 
+    moveTo "$from/*.WAV" "$to" 
+    
 }
 
 moveImages(){
@@ -89,6 +101,15 @@ moveConfigs(){
     moveTo "$from/*yaml" "$to"
     moveTo "$from/*yml" "$to"
     moveTo "$from/*.properties" "$to"
+}
+
+moveVideos(){
+    from=$1
+    to=$2
+    moveTo "$from/*MOV" "$to"
+    moveTo "$from/*mov" "$to"
+    moveTo "$from/*mp4" "$to"
+    moveTo "$from/*MP4" "$to"
 }
 moveMSDocs(){
     from=$1
