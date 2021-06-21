@@ -23,17 +23,17 @@ if [ "$(uname)" == "Darwin" ]; then
 	folder="Mac"        
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	export DOCKER_HOST=tcp://localhost:2375
-    myHome=/c/Users/bhatvive
 	storage=/d
 	if [ "$HOSTNAME" = 'bhatvive-DESK' ]; then
-		folder="Workstation"	
+		folder="Workstation"
+		myHome=/c/Users/$USER	
 	else
 		folder="Windows"
-		myHome=/mnt/c/Users/bhatvive
+		myHome=/mnt/c/Users/$USER
 	fi
 	echo "This is Ubuntu $folder"
 fi
-projectsFolder=$myHome/Documents/Projects/
+projectsFolder=$myHome/Documents/Projects
 scriptsFolder=$projectsFolder/bash_scripts
 runCleanupScripts(){
 	mkdir -p $projectsFolder
