@@ -29,6 +29,7 @@ cleaning(){
     removeHTMLDownloads $1
     removeExecutables $1
     removeInstallers $1
+    removeShortcuts $1
 }
 
 cleanDesktop(){
@@ -56,6 +57,10 @@ removeHTMLDownloads(){
 
 removeExecutables(){
     rm -rf $1/*.exe   
+}
+
+removeShortcuts(){
+    rm -rf *.lnk
 }
 
 moveTo(){
