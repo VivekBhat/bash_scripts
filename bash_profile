@@ -1,5 +1,5 @@
 #!/bin/bash
-export bashProfileVersion="4.1.0"
+export bashProfileVersion="4.2.0"
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -26,7 +26,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	storage=/d
 	if [ "$HOSTNAME" = 'bhatvive-DESK' ]; then
 		folder="Workstation"
-		myHome=/c/Users/$USER	
+		myHome=/c/Users/$USER
+	elif [ "$HOSTNAME" = 'DESKTOP-D1B93NJ' ]; then
+		folder="Workstation"
+		myHome=/mnt/c/Users/vivekbhat	
 	else
 		folder="Windows"
 		myHome=/mnt/c/Users/$USER
@@ -59,17 +62,22 @@ desktop () {
 # Function to move to CDO Projects quickly
 #--------------------------------------
 
-cdo () {
-	openFolder "cdo "
+# cdo () {
+# 	openFolder "cdo "
+# }
+
+# ltd () {
+# 	openFolder "ltd "
+# }
+
+wan () {
+	openProjects "wan "
 }
 
-ltd () {
-	openFolder "ltd "
-}
-
-openFolder(){
+openProjects(){
 	cd $projectsFolder/$1
 	echo "Moved to $1folder :) "
+	# No space after $1 is intentional 
 }
 #--------------------------------------
 # Function to open Visual studio code
