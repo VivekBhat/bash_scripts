@@ -1,5 +1,5 @@
 #!/bin/bash
-export bashProfileVersion="4.2.0"
+export bashProfileVersion="4.3.0"
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -26,17 +26,17 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	storage=/d
 	if [ "$HOSTNAME" = 'bhatvive-DESK' ]; then
 		folder="Workstation"
-		myHome=/c/Users/$USER
+		myHome=/c/Users/$USER/Documents
 	elif [ "$HOSTNAME" = 'DESKTOP-D1B93NJ' ]; then
 		folder="Workstation"
-		myHome=/mnt/c/Users/vivekbhat	
+		myHome=/mnt/c/Users/vivekbhat
 	else
 		folder="Windows"
 		myHome=/mnt/c/Users/$USER
 	fi
 	echo "This is Ubuntu $folder"
 fi
-projectsFolder=$myHome/Documents/Projects
+projectsFolder=$myHome/Projects
 scriptsFolder=$projectsFolder/bash_scripts
 runCleanupScripts(){
 	mkdir -p $projectsFolder
@@ -177,3 +177,4 @@ DOCKER_ID_USER="vivekbhat"
 # export SOCKS_PROXY=http://proxy-us.intel.com:1080
 # export NO_PROXY=*intel.com,.intel.com,localhost,127.0.0.1
 export PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '
+# export DOCKER_HOST=tcp://localhost:2375
