@@ -1,4 +1,4 @@
-# bash_scripts
+# Bash Scripts
 
 ### bash_profile
 This bash profile is a helper script for me
@@ -15,7 +15,7 @@ source ~/.bash_profile
 echo "Bash Profile Version: $bashProfileVersion"
 ```
 
-## Troubleshoot
+### Troubleshoot
 1. [How to Create Symbolic Links with mklink](https://www.howtogeek.com/howto/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/)
     ```
     mklink /D C:\Users\vivekbhat\Desktop "C:\Users\vivekbhat\OneDrive - Microsoft\Desktop"
