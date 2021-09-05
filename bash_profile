@@ -1,5 +1,5 @@
 #!/bin/bash
-export bashProfileVersion="4.3.0"
+export bashProfileVersion="4.3.1"
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -22,8 +22,6 @@ if [ "$(uname)" == "Darwin" ]; then
     myHome=/Users/$USER
 	folder="Mac"        
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-	export DOCKER_HOST=tcp://localhost:2375
-	storage=/d
 	if [ "$HOSTNAME" = 'bhatvive-DESK' ]; then
 		folder="Workstation"
 		myHome=/c/Users/$USER/Documents
