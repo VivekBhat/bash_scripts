@@ -15,7 +15,6 @@ source ~/.bash_profile
 echo "Bash Profile Version: $bashProfileVersion"
 ```
 
-
 ## Troubleshoot
 1. [How to Create Symbolic Links with mklink](https://www.howtogeek.com/howto/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/)
     ```
