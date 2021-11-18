@@ -30,6 +30,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	elif [ "$HOSTNAME" = 'DESKTOP-D1B93NJ' ]; then
 		folder="Workstation"
 		myHome=/mnt/c/Users/vivekbhat
+	elif [ "$HOSTNAME" = 'DESKTOP-D1B93NJ' ]; then
+		folder="Workstation"
+		myHome=/mnt/c/Users/vivekbhat
 	else
 		folder="Windows"
 		myHome=/mnt/c/Users/$USER
