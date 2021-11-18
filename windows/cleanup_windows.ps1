@@ -1,10 +1,8 @@
-CleanFolder "Desktop"
-CleanFolder "Downloads"
-
 function CleanFolder{
     param (
         $Folder
     )
+    echo "cleaning $Folder"
     cd $HOME\$Folder\
 
     mv *.docx .\docs\word\
@@ -24,3 +22,6 @@ function CleanFolder{
 
     rm *.lnk
 }
+
+CleanFolder "Desktop"
+CleanFolder "Downloads"
