@@ -1,4 +1,4 @@
-function CleanFolder{
+function CleanupFolders{
     param (
         $Folder
     )
@@ -23,5 +23,5 @@ function CleanFolder{
     rm *.lnk
 }
 
-CleanFolder "Desktop"
-CleanFolder "Downloads"
+CleanupFolders "Desktop"
+CleanupFolders "Downloads"
