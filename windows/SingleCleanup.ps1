@@ -1,16 +1,19 @@
-$scriptFolder=(Get-Item .).FullName
 
 function CreateCleanFolders{
     param (
-        $CurrDirectory
+        $Folder
     )
-    Set-Location $CurrDirectory
+
+    $currDir = "$HOME\$Folder\"
+    Set-Location $currDir
     $myFolders = "ppts","pdfs","word","excel","images","text_files"
 
     $FolderName = "docs"
     Foreach ($i in $myFolders)
     {    
         $currFolder = "$FolderName\$i"
+        echo $currDir
+        echo $currFolder
         if (-Not (Test-Path $currFolder)) {
             #PowerShell Create directory if not exists
             New-Item $currFolder -ItemType Directory
@@ -18,19 +21,17 @@ function CreateCleanFolders{
 
         }
     } 
-    Set-Location $CurrDirectory
 }
 
 CreateCleanFolders "$HOME\OneDrive - Microsoft\Desktop"
-CreateCleanFolders "$HOME\Downloads"
+CreateCleanFolders "Downloads"
 
 Set-Location $scriptFolder
-
-function CleanupFolders{
+function CleanFolder{
     param (
         $Folder
     )
-    echo "cleaning $Folder"
+    echo "cleaning $HOME\$Folder"
     cd $HOME\$Folder\
 
     mv *.docx .\docs\word\
@@ -51,7 +52,7 @@ function CleanupFolders{
     rm *.lnk
 }
 
-CleanupFolders "Desktop"
-CleanupFolders "Downloads"
+CleanFolder "$HOME\OneDrive - Microsoft\Desktop"
+CleanFolder "Downloads"
 
 Set-Location $scriptFolder

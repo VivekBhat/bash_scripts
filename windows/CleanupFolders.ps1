@@ -3,25 +3,25 @@ function CleanupFolders{
         $Folder
     )
     echo "cleaning $Folder"
-    cd $HOME\$Folder\
+    cd $Folder\
 
-    mv *.docx .\docs\word\
+    mv -Force  *.docx .\docs\word\
 
-    mv *.ppt .\docs\ppts\
-    mv *.pptx .\docs\ppts\
+    mv -Force  *.ppt .\docs\ppts\
+    mv -Force  *.pptx .\docs\ppts\
 
-    mv *pdf .\docs\pdfs\
+    mv -Force  *pdf .\docs\pdfs\
 
-    mv *.xlsx .\docs\excel
+    mv -Force  *.xlsx .\docs\excel
 
-    mv *.jpg .\docs\images
-    mv *.JPEG .\docs\images
-    mv *.jpeg .\docs\images
+    mv -Force  *.jpg .\docs\images
+    mv -Force  *.JPEG .\docs\images
+    mv -Force  *.jpeg .\docs\images
 
-    mv *.txt .\docs\text_files
+    mv -Force  *.txt .\docs\text_files
 
     rm *.lnk
 }
 
-CleanupFolders "Desktop"
-CleanupFolders "Downloads"
+CleanupFolders "$HOME\OneDrive - Microsoft\Desktop"
+CleanupFolders "$HOME\Downloads"
