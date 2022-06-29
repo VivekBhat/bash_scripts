@@ -114,7 +114,7 @@ subl(){
 prof(){
 	echo "Opening Visual Studio Code to edit the bash profile"
 	cd $scriptsFolder
-	vscode . 1>/dev/null
+	code . 1>/dev/null
 }
 
 #--------------------------------------
