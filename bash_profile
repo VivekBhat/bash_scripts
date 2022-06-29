@@ -84,16 +84,20 @@ openProjects(){
 # Function to open Visual studio code
 #--------------------------------------
 
-vscode () {
-	echo "Opening Visual Studio Code $2" 
-	if [ $folder == "Mac" ]; then
-		open $1 -a /Applications/Visual\ Studio\ Code.app 
-	elif [ $folder == "Windows" ]; then
-		$myHome/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe $1
-	elif [ $folder == "Workstation" ]; then
-		$myHome/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe $1
-	fi
-}
+# USE THIS LINK TO FOLLOW: 
+
+# https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line
+
+# vscode () {
+# 	echo "Opening Visual Studio Code $2" 
+# 	if [ $folder == "Mac" ]; then
+# 		open $1 -a /Applications/Visual\ Studio\ Code.app 
+# 	elif [ $folder == "Windows" ]; then
+# 		$myHome/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe $1
+# 	elif [ $folder == "Workstation" ]; then
+# 		$myHome/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe $1
+# 	fi
+# }
 
 #--------------------------------------
 # Function to open Sublime Text
@@ -163,7 +167,7 @@ alias lla='ls -la'
 # alias exp="explorer.exe `wslpath -w "$1"`"
 # alias pip=pip3
 
-DOCKER_ID_USER="vivekbhat"
+# DOCKER_ID_USER="vivekbhat"
 
 
 # export http_proxy=http://proxy-chain.intel.com:911
