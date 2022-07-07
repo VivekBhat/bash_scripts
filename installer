@@ -1,3 +1,8 @@
+cp -f zshrc ~/.zshrc
+chmod +x ~/.zshrc
+source ~/.zshrc
+echo "Bash Profile Version: $bashProfileVersion"
+
 cp -f bash_profile ~/.bash_profile
 chmod +x ~/.bash_profile
 source ~/.bash_profile
