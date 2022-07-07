@@ -1,0 +1,7 @@
+cp -f zshrc ~/.zshrc
+chmod +x ~/.zshrc
+source ~/.zshrc
+echo "Bash Profile Version: $bashProfileVersion"
+
+
+echo $HOME/Projects >> ~/.zshrc
