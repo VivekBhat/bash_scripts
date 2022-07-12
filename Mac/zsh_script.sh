@@ -54,7 +54,22 @@ src(){
 	source ~/.zshrc
 	echo "Bash Profile Version: $bashProfileVersion"
 }
+
+#--------------------------------------
+# Function to write notes
+#--------------------------------------
+
+notes(){
+	echo "Let's take notes"
+	cd $projectsFolder/Notes
+	code . 1>/dev/null
+}
+
 runCleanupScripts
 
+export PATH=$PATH:/Users/vivekbht/.toolbox/bin
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home"
+echo $PATH
 # /Users/vivekbht/.toolbox/bin
-# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/apollo/env/SDETools/bin:/Users/vivekbht/.toolbox/bin
+# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/vivekbht/.toolbox/bin
+# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/Users/vivekbht/.toolbox/bin
