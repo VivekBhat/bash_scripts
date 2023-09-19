@@ -1,3 +1,5 @@
+export bashProfileVersion="4.6.9"
+
 #--------------------------------------
 # Personalized additions
 #--------------------------------------
