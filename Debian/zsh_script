@@ -39,6 +39,7 @@ openProjects(){
 ow () {
 	cd $projectsFolder/owaiops
 	echo "Moved to OneWeb AIOps project folder :) "
+	ll
 }
 
 #--------------------------------------
