@@ -1,0 +1,28 @@
+# [Original PATH] export PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+# Check if the directory is not already in PATH before adding it
+function add_to_path() {
+    if [[ ":$PATH:" != *":$1:"* ]]; then
+        export PATH=$PATH:$1
+    fi
+}
+
+export REPO_DIR=$HOME/Projects/owaiops
+export MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
+
+# Add directories to PATH using the custom function
+add_to_path $HOME/go/bin
+add_to_path /usr/local/go/bin
+add_to_path /usr/local/apache-maven-3.9.6/bin
+
+# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
+# /home/vivekbhat/.virtualenvs/weatherwise/bin:
+# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
+# /home/vivekbhat/.virtualenvs/weatherwise/bin:
+# /usr/local/bin:
+# /usr/bin:
+# /bin:
+# /usr/games:
+# /home/vivekbhat/go/bin:
+# /usr/local/go/bin
+
+# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/games:/home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:/home/vivekbhat/.virtualenvs/weatherwise/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/home/vivekbhat/go/bin:/usr/local/go/bin:/usr/local/apache-maven-3.9.6/bin
