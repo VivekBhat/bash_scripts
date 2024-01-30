@@ -1,0 +1,33 @@
+function workon() {
+    source $HOME/.virtualenvs/$1/bin/activate;
+    # cd $REPO_DIR/$1
+}
+
+function pyvenv_here() {
+    folder_name=$(basename "$(pwd)")
+    venv_path="$HOME/.virtualenvs/$folder_name"
+    if [ ! -d "$venv_path" ]; then
+        echo "Creating virtual environment for $folder_name..."
+        python3 -m venv "$venv_path"
+    fi
+
+    source "$venv_path/bin/activate"
+
+    echo "Activated virtual environment for $folder_name."
+}
+
+function trace() {
+  echo "==================================================="
+  echo -e "$1"
+  echo "==================================================="
+}
+
+# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
+# /home/vivekbhat/.virtualenvs/websiteSeleniumAutomation/bin:
+# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
+# /home/vivekbhat/.virtualenvs/websiteSeleniumAutomation/bin:
+# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
+# /home/vivekbhat/.virtualenvs/websiteSeleniumAutomation/bin:
+# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
+# /home/vivekbhat/.virtualenvs/websiteSeleniumAutomation/bin:
+# /usr/local/bin:/usr/bin:/bin:/usr/games:/home/vivekbhat/go/bin:/usr/local/go/bin:/usr/local/apache-maven-3.9.6/bin
