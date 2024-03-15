@@ -1,15 +1,21 @@
-if grep -q "\bsource \$HOME/Projects/bash_scripts/Debian/zsh_profile\b" ~/.zshrc; then
-    echo "ZSH Profile exists in ~/.zshrc"
-else
-    echo "Adding line to ~/.zshrc"
-    echo "source \$HOME/Projects/bash_scripts/Debian/zsh_profile" >>~/.zshrc
-    echo "Line added successfully"
-fi
+#!/bin/bash
 
-if grep -q "\bsource \$HOME/Projects/bash_scripts/Debian/bash_profile\b" ~/.bashrc; then
-    echo "Bash Profile exists in ~/.bashrc"
-else
-    echo "Adding line to ~/.bashrc"
-    echo "source \$HOME/Projects/bash_scripts/Debian/bash_profile" >>~/.bashrc
-    echo "Line added successfully"
-fi
+# Function to add profile line if it doesn't exist
+add_profile_line() {
+    local profile_file="$1"
+    local profile_name="$2"
+
+    if grep -q "\bsource \$HOME/Projects/bash_scripts/Debian/$profile_name\b" "$profile_file"; then
+        echo "$profile_name Profile exists in $profile_file"
+    else
+        echo "Adding line to $profile_file"
+        echo "source \$HOME/Projects/bash_scripts/Debian/$profile_name" >>"$profile_file"
+        echo "Line added successfully"
+    fi
+}
+
+# Add ZSH Profile line
+add_profile_line ~/.zshrc zsh_profile
+
+# Add Bash Profile line
+add_profile_line ~/.bashrc bash_profile
