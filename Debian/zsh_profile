@@ -1,71 +1,9 @@
-#--------------------------------------
-# Personalized additions
-#--------------------------------------
-
-projectsFolder=$HOME/Projects
-scriptsFolder=$projectsFolder/bash_scripts
-
-runCleanupScripts(){
-	mkdir -p $projectsFolder
-	$scriptsFolder/cleanup $HOME
-}
-
-updatezshcript(){
-    echo "Updating zsh script :) "
-	cp $scriptsFolder/zshrc ~/.zshrc
-	chmod +x ~/.zshrc
-    echo "run src to source the new profile"
-}
-
-#--------------------------------------
-# Function to move to desktop quickly
-#--------------------------------------
-
-desktop () {
-	cd $HOME/Desktop
-	echo "Moved to Desktop :) "
-}
-
-openProjects(){
-	cd $projectsFolder/$1
-	echo "Moved to $1 folder :) "
-	# No space after $1 is intentional 
-}
-
-#--------------------------------------
-# Function to move to OneWeb Projects quickly
-#--------------------------------------
-
-ow () {
-	owProjectFolder=$projectsFolder/owaiops 
-	mkdir -p $owProjectFolder
-	cd $owProjectFolder
-	echo "Moved to OneWeb AIOps project folder :) "
-	ll
-}
-
-#--------------------------------------
-# Function to edit zshrc
-#--------------------------------------
-
-prof(){
-	echo "Opening Visual Studio Code to edit the bash profile"
-	cd $scriptsFolder
-	code . 1>/dev/null
-}
+source $HOME/Projects/bash_scripts/Debian/common
 
 #--------------------------------------
 # Function to Source bash profile
 #--------------------------------------
-src(){
+src() {
 	source ~/.zshrc
-	echo "Bash Profile Version: $bashProfileVersion"
+	echo "ZSH Profile Version: $ProfileVersion"
 }
-runCleanupScripts
-
-# /Users/vivekbht/.toolbox/bin
-# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/apollo/env/SDETools/bin:/Users/vivekbht/.toolbox/bin
-
-# export MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
-# export PATH=$PATH:/usr/local/go/bin/
-source $HOME/Projects/bash_scripts/Debian/common

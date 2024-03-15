@@ -1,6 +1,18 @@
+#--------------------------------------
+# Function to move to OneWeb Projects quickly
+#--------------------------------------
+
+function ow() {
+    owProjectFolder=$projectsFolder/owaiops
+    mkdir -p $owProjectFolder
+    cd $owProjectFolder
+    echo "Moved to OneWeb AIOps project folder :) "
+    ll
+}
+
 function workon() {
-    source $HOME/.virtualenvs/$1/bin/activate;
-    # cd $REPO_DIR/$1
+    source $HOME/.virtualenvs/$1/bin/activate
+    cd $REPO_DIR/$1
 }
 
 function pyvenv_here() {
@@ -12,22 +24,26 @@ function pyvenv_here() {
     fi
 
     source "$venv_path/bin/activate"
-
     echo "Activated virtual environment for $folder_name."
 }
 
-function trace() {
-  echo "==================================================="
-  echo -e "$1"
-  echo "==================================================="
+
+alias aws-kubectl-update='aws eks update-kubeconfig --region eu-west-2 --name insightalytics'
+
+if [ ! -e /usr/bin/aws-set-credentials.py ]; then
+    ln -s $REPO_DIR/owaiops_terraform/deployments/user-accounts/aws-set-credentials.py /usr/bin/aws-set-credentials.py
+fi
+
+function aws-setcreds() {
+    aws-set-credentials.py --env $1 && aws-kubectl-update
 }
 
-# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
-# /home/vivekbhat/.virtualenvs/websiteSeleniumAutomation/bin:
-# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
-# /home/vivekbhat/.virtualenvs/websiteSeleniumAutomation/bin:
-# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
-# /home/vivekbhat/.virtualenvs/websiteSeleniumAutomation/bin:
-# /home/vivekbhat/.vscode/extensions/ms-python.python-2023.22.1/pythonFiles/deactivate/zsh:
-# /home/vivekbhat/.virtualenvs/websiteSeleniumAutomation/bin:
-# /usr/local/bin:/usr/bin:/bin:/usr/games:/home/vivekbhat/go/bin:/usr/local/go/bin:/usr/local/apache-maven-3.9.6/bin
+FLINK_HOME=$HOME/Projects/owaiops
+REPO_DIR=$HOME/Projects/owaiops
+MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
+
+# Add directories to PATH using the custom function
+add_to_path $HOME/go/bin
+add_to_path $HOME/flink/bin
+add_to_path /usr/local/go/bin
+add_to_path /usr/local/apache-maven-3.9.6/bin

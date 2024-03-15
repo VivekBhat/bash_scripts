@@ -1,0 +1,7 @@
+if grep -q "\bsource \$HOME/Projects/bash_scripts/Debian/zsh_profile\b" ~/.zshrc; then
+    echo "Line exists in ~/.zshrc"
+else
+    echo "Adding line to ~/.zshrc"
+    echo "source \$HOME/Projects/bash_scripts/Debian/zsh_profile" >> ~/.zshrc
+    echo "Line added successfully"
+fi

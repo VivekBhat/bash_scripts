@@ -2,6 +2,7 @@
 
 ### bash_profile
 This bash profile is a helper script for me
+
 ## New OS Setup
 
 * Decide a `$myHome`

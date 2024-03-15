@@ -1,17 +1,86 @@
+ProfileVersion="2.0.0"
+
+projectsFolder=$HOME/Projects
+scriptsFolder=$projectsFolder/bash_scripts
+
+# Organinze and cleanup all the files
+$scriptsFolder/Cleanup/cleanup $HOME
+
+#--------------------------------------
+# Function to Check if the directory is not already in PATH before adding it
 # [Original PATH] export PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
-# Check if the directory is not already in PATH before adding it
-function add_to_path() {
+#--------------------------------------
+
+add_to_path() {
     if [[ ":$PATH:" != *":$1:"* ]]; then
         export PATH=$PATH:$1
     fi
 }
 
-export REPO_DIR=$HOME/Projects/owaiops
-export MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
+#--------------------------------------
+# Function to move to desktop quickly
+#--------------------------------------
 
-# Add directories to PATH using the custom function
-add_to_path $HOME/go/bin
-add_to_path /usr/local/go/bin
-add_to_path /usr/local/apache-maven-3.9.6/bin
+desktop() {
+    cd $HOME/Desktop || return 1
+    trace "Moved to Desktop :) "
+}
+
+#--------------------------------------
+# Function to move to downloads quickly
+#--------------------------------------
+downloads() {
+    cd $HOME/Downloads || return 1
+    trace "Moved to Downloads :) "
+}
+
+#--------------------------------------
+# Function to move to desktop quickly
+# If input is not provided, it will print "Moved to projects folder",
+# and if input is provided, it will trace "Moved to <folder_name> folder".
+# Additionally, I added error handling to exit the function if cd fails.
+#--------------------------------------
+openProjects() {
+    cd "$projectsFolder/$1" || return 1
+    if [ -z "$1" ]; then
+        trace "Moved to projects folder"
+    else
+        trace "Moved to $1 folder"
+    fi
+}
+
+#--------------------------------------
+# Function to edit zshrc
+#--------------------------------------
+
+prof() {
+    trace "Opening Visual Studio Code to edit the bash profile"
+    cd $scriptsFolder
+    code . 1>/dev/null
+}
+
+trace() {
+    echo "==========================================================="
+    echo -e "$1"
+    echo "==========================================================="
+}
+
+# Source: http://patorjk.com/software/taag/#p=display&f=Graffiti&t=bhatvive
+# http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=vivekbhat
+#--------------------------------------
+# :-|
+#--------------------------------------
+vivek() {
+    trace "${CYAN}
+██╗   ██╗██╗██╗   ██╗███████╗██╗  ██╗   ██████╗ ██╗  ██╗ █████╗ ████████╗
+██║   ██║██║██║   ██║██╔════╝██║ ██╔╝   ██╔══██╗██║  ██║██╔══██╗╚══██╔══╝
+██║   ██║██║██║   ██║█████╗  █████╔╝    ██████╔╝███████║███████║   ██║   
+╚██╗ ██╔╝██║╚██╗ ██╔╝██╔══╝  ██╔═██╗    ██╔══██╗██╔══██║██╔══██║   ██║   
+ ╚████╔╝ ██║ ╚████╔╝ ███████╗██║  ██╗██╗██████╔╝██║  ██║██║  ██║   ██║   
+  ╚═══╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
+${NC}
+"
+}
 
 source $HOME/Projects/bash_scripts/Debian/work/hughes
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

@@ -1,5 +1,5 @@
 #!/bin/bash
-export bashProfileVersion="1.0.2"
+source $HOME/Projects/bash_scripts/Debian/common
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -14,81 +14,14 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 CYAN='\033[0;36m'
-NC='\033[0m' 
+NC='\033[0m'
 # printf "By ${RED}Vivek Bhat ${NC}\n"
 
-
-projectsFolder=$HOME/Projects
-scriptsFolder=$projectsFolder/bash_scripts
-
-runCleanupScripts(){
-	mkdir -p $projectsFolder
-	bash $scriptsFolder/cleanup $HOME
-}
-runCleanupScripts
-
-#--------------------------------------
-# Function to move to desktop quickly
-#--------------------------------------
-
-desktop () {
-	cd $home/Desktop
-	echo "Moved to Desktop :) "
-}
-
-#--------------------------------------
-# Function to move to OneWeb Projects quickly
-#--------------------------------------
-
-ow () {
-	cd $projectsFolder/owaiops
-	echo "Moved to OneWeb AIOps project folder :) "
-}
-
-#--------------------------------------
-# Function to edit bash_profile
-#--------------------------------------
-
-prof(){
-	code $scriptsFolder
-}
-
+export PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '
 #--------------------------------------
 # Function to Source bash profile
 #--------------------------------------
-src(){
+src() {
 	source ~/.bashrc
-	echo "Bash Profile Version: $bashProfileVersion"
+	echo "Bash Profile Version: $ProfileVersion"
 }
-
-# Source: http://patorjk.com/software/taag/#p=display&f=Graffiti&t=bhatvive
-# http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=vivekbhat
-#--------------------------------------
-# :-|
-#--------------------------------------
-vivek(){
-printf "${CYAN}
-██╗   ██╗██╗██╗   ██╗███████╗██╗  ██╗   ██████╗ ██╗  ██╗ █████╗ ████████╗
-██║   ██║██║██║   ██║██╔════╝██║ ██╔╝   ██╔══██╗██║  ██║██╔══██╗╚══██╔══╝
-██║   ██║██║██║   ██║█████╗  █████╔╝    ██████╔╝███████║███████║   ██║   
-╚██╗ ██╔╝██║╚██╗ ██╔╝██╔══╝  ██╔═██╗    ██╔══██╗██╔══██║██╔══██║   ██║   
- ╚████╔╝ ██║ ╚████╔╝ ███████╗██║  ██╗██╗██████╔╝██║  ██║██║  ██║   ██║   
-  ╚═══╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
-${NC}
-"
-}
-
-checking(){
-	echo "checking"
-}
-
-alias ll='ls -l'
-alias lla='ls -la'
-
-DOCKER_ID_USER="vivekbhat"
-
-export AWS_ACCESS_KEY="AKIAIF534K4FFXKCQ35A"
-export AWS_SECRET_KEY="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"
-
-export PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '
-
