@@ -6,8 +6,7 @@ function ow() {
     owProjectFolder=$projectsFolder/owaiops
     mkdir -p $owProjectFolder
     cd $owProjectFolder
-    echo "Moved to OneWeb AIOps project folder :) "
-    ll
+    trace "Moved to OneWeb AIOps project folder :) "
 }
 
 function workon() {

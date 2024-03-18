@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ProfileVersion="2.0.0"
 
 projectsFolder=$HOME/Projects
