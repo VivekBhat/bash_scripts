@@ -1,4 +1,3 @@
-
 function CreateCleanFolders{
     param (
         $CurrDirectory
@@ -20,5 +19,9 @@ function CreateCleanFolders{
     Set-Location $CurrDirectory
 }
 
-CreateCleanFolders "$HOME\OneDrive - Microsoft\Desktop"
+$desktopPath = [Environment]::GetFolderPath("Desktop")
+$documentsPath = [Environment]::GetFolderPath("MyDocuments")
+
+CreateCleanFolders $desktopPath
+CreateCleanFolders $documentsPath
 CreateCleanFolders "$HOME\Downloads"
