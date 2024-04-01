@@ -1,7 +1,10 @@
-ProfileVersion="2.0.0"
+#!/bin/bash
 
-projectsFolder=$HOME/Projects
-scriptsFolder=$projectsFolder/bash_scripts
+ProfileVersion="2.1.0"
+
+scriptDir=$(dirname "$0")
+scriptsFolder=$(dirname "$scriptDir")
+projectsFolder=$(dirname "$scriptsFolder")
 
 # Organinze and cleanup all the files
 $scriptsFolder/Cleanup/cleanup $HOME
