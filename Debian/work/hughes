@@ -34,6 +34,14 @@ function pyvenv_here() {
     echo "Activated virtual environment for $folder_name."
 }
 
+function refresh-maven-token() {
+    export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
+        --domain hughes \
+        --domain-owner 181148949657 \
+        --region eu-west-2 \
+        --query authorizationToken \
+        --output text)
+}
 
 alias aws-kubectl-update='aws eks update-kubeconfig --region eu-west-2 --name insightalytics'
 
@@ -48,6 +56,8 @@ function aws-setcreds() {
 export FLINK_HOME=$HOME/Projects/owaiops
 export REPO_DIR=$HOME/Projects/owaiops
 export MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
+
+refresh-maven-token
 
 # Add directories to PATH using the custom function
 add_to_path $HOME/go/bin
