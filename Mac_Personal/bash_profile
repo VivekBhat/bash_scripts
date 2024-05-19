@@ -1,7 +1,5 @@
 #!/bin/bash
-scriptDir=$(dirname "$0")
-
-source $scriptDir/common
+source $HOME/Projects/bash_scripts/Debian/common
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31

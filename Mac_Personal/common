@@ -1,0 +1,87 @@
+#!/bin/bash
+
+ProfileVersion="2.0.0"
+
+scriptDir=$(dirname "$0")
+scriptsFolder=$(dirname "$scriptDir")
+projectsFolder=$(dirname "$scriptsFolder")
+
+# Organinze and cleanup all the files
+$scriptsFolder/Cleanup/cleanup $HOME
+
+#--------------------------------------
+# Function to Check if the directory is not already in PATH before adding it
+# [Original PATH] export PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+#--------------------------------------
+
+add_to_path() {
+    if [[ ":$PATH:" != *":$1:"* ]]; then
+        export PATH=$PATH:$1
+    fi
+}
+
+#--------------------------------------
+# Function to move to desktop quickly
+#--------------------------------------
+
+desktop() {
+    cd $HOME/Desktop || return 1
+    trace "Moved to Desktop :) "
+}
+
+#--------------------------------------
+# Function to move to downloads quickly
+#--------------------------------------
+downloads() {
+    cd $HOME/Downloads || return 1
+    trace "Moved to Downloads :) "
+}
+
+#--------------------------------------
+# Function to move to desktop quickly
+# If input is not provided, it will print "Moved to projects folder",
+# and if input is provided, it will trace "Moved to <folder_name> folder".
+# Additionally, I added error handling to exit the function if cd fails.
+#--------------------------------------
+openProjects() {
+    cd "$projectsFolder/$1" || return 1
+    if [ -z "$1" ]; then
+        trace "Moved to projects folder"
+    else
+        trace "Moved to $1 folder"
+    fi
+}
+
+#--------------------------------------
+# Function to edit zshrc
+#--------------------------------------
+
+prof() {
+    trace "Opening Visual Studio Code to edit the bash profile"
+    cd $scriptsFolder
+    code . 1>/dev/null
+}
+
+trace() {
+    echo "==========================================================="
+    echo -e "$1"
+    echo "==========================================================="
+}
+
+# Source: http://patorjk.com/software/taag/#p=display&f=Graffiti&t=bhatvive
+# http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=vivekbhat
+#--------------------------------------
+# :-|
+#--------------------------------------
+vivek() {
+    trace "${CYAN}
+██╗   ██╗██╗██╗   ██╗███████╗██╗  ██╗   ██████╗ ██╗  ██╗ █████╗ ████████╗
+██║   ██║██║██║   ██║██╔════╝██║ ██╔╝   ██╔══██╗██║  ██║██╔══██╗╚══██╔══╝
+██║   ██║██║██║   ██║█████╗  █████╔╝    ██████╔╝███████║███████║   ██║   
+╚██╗ ██╔╝██║╚██╗ ██╔╝██╔══╝  ██╔═██╗    ██╔══██╗██╔══██║██╔══██║   ██║   
+ ╚████╔╝ ██║ ╚████╔╝ ███████╗██║  ██╗██╗██████╔╝██║  ██║██║  ██║   ██║   
+  ╚═══╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
+${NC}
+"
+}
+
