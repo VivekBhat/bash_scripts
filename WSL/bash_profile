@@ -27,3 +27,6 @@ src() {
 	source ~/.bashrc
 	echo "Bash Profile Version: $ProfileVersion"
 }
+
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
