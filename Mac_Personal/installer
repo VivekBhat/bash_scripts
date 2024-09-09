@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(dirname "$0")
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 # Function to add profile line if it doesn't exist
 add_profile_line() {

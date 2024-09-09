@@ -1,7 +1,7 @@
 #!/bin/bash
-scriptDir=$(dirname "$0")
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
-source $scriptDir/common
+source $SCRIPT_DIR/common
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
