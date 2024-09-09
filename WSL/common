@@ -58,7 +58,7 @@ openProjects() {
 
 prof() {
     trace "Opening Visual Studio Code to edit the bash profile"
-    (   
+    (
         cd $scriptsFolder
         code . 1>/dev/null
     )
@@ -88,4 +88,5 @@ ${NC}
 }
 
 source $scriptDir/work/hughes
+source $scriptDir/work/aws_helpers.sh
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

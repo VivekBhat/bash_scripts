@@ -1,3 +1,4 @@
+#!/bin/bash
 #--------------------------------------
 # Function to move to OneWeb Projects quickly
 #--------------------------------------
@@ -34,34 +35,14 @@ function pyvenv_here() {
     echo "Activated virtual environment for $folder_name."
 }
 
-function refresh-maven-token() {
-    export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
-        --domain hughes \
-        --domain-owner 181148949657 \
-        --region eu-west-2 \
-        --query authorizationToken \
-        --output text)
-}
-
-alias aws-kubectl-update='aws eks update-kubeconfig --region eu-west-2 --name insightalytics'
-
-if [ ! -e /usr/bin/aws-set-credentials.py ]; then
-    sudo ln -s $REPO_DIR/owaiops_terraform/deployments/user-accounts/aws-set-credentials.py /usr/bin/aws-set-credentials.py
-fi
-
-function aws-setcreds() {
-    aws-set-credentials.py --env $1 && aws-kubectl-update
-}
-
 export FLINK_HOME=$HOME/Projects/owaiops
 export REPO_DIR=$HOME/Projects/owaiops
 export MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
-export AWS_CA_BUNDLE="/home/vivekbhat/localProjects/private/certificates/codeartifact/combined/codeartifact_ca_bundle.crt"
-# export CURL_CA_BUNDLE="/home/vivekbhat/VMSharedFolder/certificates/terraform/ca-bundle.crt"
-refresh-maven-token
+export REQUESTS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
 
 # Add directories to PATH using the custom function
 add_to_path $HOME/go/bin
 add_to_path $HOME/flink/bin
 add_to_path /usr/local/go/bin
 add_to_path /usr/local/apache-maven-3.9.6/bin
+setopt KSH_ARRAYS
