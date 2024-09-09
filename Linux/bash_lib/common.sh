@@ -2,13 +2,21 @@
 
 ProfileVersion="2.1.0"
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+COMMON_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
-scriptsFolder=$(dirname "$SCRIPT_DIR")
-projectsFolder=$(dirname "$scriptsFolder")
+# Function to add profile line if it doesn't exist
+add_profile_line() {
+    local profile_file="$1"
+    local profile_name="$2"
+    local profile_str="source $profile_name"
 
-# Organinze and cleanup all the files
-# $scriptsFolder/Cleanup/cleanup $HOME
+    if grep -q "$profile_str" "$profile_file"; then
+        echo "$profile_name Profile exists in $profile_file"
+    else
+        echo "$profile_str" >>"$profile_file"
+        echo "Added $profile_name in $profile_file successfully"
+    fi
+}
 
 #--------------------------------------
 # Function to Check if the directory is not already in PATH before adding it
@@ -45,6 +53,7 @@ downloads() {
 # Additionally, I added error handling to exit the function if cd fails.
 #--------------------------------------
 openProjects() {
+    local projectsFolder="$HOME/Projects"
     cd "$projectsFolder/$1" || return 1
     if [ -z "$1" ]; then
         trace "Moved to projects folder"
@@ -60,7 +69,7 @@ openProjects() {
 prof() {
     trace "Opening Visual Studio Code to edit the bash profile"
     (
-        cd $scriptsFolder
+        cd $BASH_SCRIPTS_FOLDER
         code . 1>/dev/null
     )
 }
@@ -87,7 +96,3 @@ vivek() {
 ${NC}
 "
 }
-
-source $SCRIPT_DIR/work/hughes
-source $SCRIPT_DIR/work/aws_helpers.sh
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
