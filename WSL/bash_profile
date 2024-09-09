@@ -6,5 +6,6 @@ PROJECTS_FOLDER="$HOME/Projects"
 LINUX_SCRIPTS_FOLDER=$BASH_SCRIPTS_FOLDER/Linux
 
 source $LINUX_SCRIPTS_FOLDER/bash_lib/common.sh
+source $LINUX_SCRIPTS_FOLDER/bash_lib/git_helpers.sh
 source $LINUX_SCRIPTS_FOLDER/work/.hughes.inc
 source $LINUX_SCRIPTS_FOLDER/work/aws_helpers.sh
