@@ -2,18 +2,15 @@
 #--------------------------------------
 # Function to move to OneWeb Projects quickly
 #--------------------------------------
+export REPO_DIR=$HOME/Projects/owaiops
 
 function ow() {
-    owProjectFolder=$PROJECTS_FOLDER/owaiops
-    mkdir -p $owProjectFolder
-    cd $owProjectFolder
+    cd $REPO_DIR/owaiops
     trace "Moved to OneWeb AIOps project folder :) "
 }
 
 function ws() {
-    workspacesFolder=$PROJECTS_FOLDER/owaiops/workspaces
-    mkdir -p $workspacesFolder
-    cd $workspacesFolder
+    cd $REPO_DIR/owaiops/workspaces
     trace "Moved to OneWeb AIOps Workspaces folder :) "
     ll
 }
@@ -36,7 +33,6 @@ function pyvenv_here() {
 }
 
 export FLINK_HOME=$HOME/Projects/owaiops
-export REPO_DIR=$HOME/Projects/owaiops
 export MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
 export REQUESTS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
 

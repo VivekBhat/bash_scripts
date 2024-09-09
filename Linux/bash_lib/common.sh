@@ -53,6 +53,7 @@ downloads() {
 # Additionally, I added error handling to exit the function if cd fails.
 #--------------------------------------
 openProjects() {
+    # PROJECTS_FOLDER is supplied by the function calling this common.sh
     cd "$PROJECTS_FOLDER/$1" || return 1
     if [ -z "$1" ]; then
         trace "Moved to projects folder"
