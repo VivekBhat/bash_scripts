@@ -53,8 +53,7 @@ downloads() {
 # Additionally, I added error handling to exit the function if cd fails.
 #--------------------------------------
 openProjects() {
-    local projectsFolder="$HOME/Projects"
-    cd "$projectsFolder/$1" || return 1
+    cd "$PROJECTS_FOLDER/$1" || return 1
     if [ -z "$1" ]; then
         trace "Moved to projects folder"
     else

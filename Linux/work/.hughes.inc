@@ -4,14 +4,14 @@
 #--------------------------------------
 
 function ow() {
-    owProjectFolder=$projectsFolder/owaiops
+    owProjectFolder=$PROJECTS_FOLDER/owaiops
     mkdir -p $owProjectFolder
     cd $owProjectFolder
     trace "Moved to OneWeb AIOps project folder :) "
 }
 
 function ws() {
-    workspacesFolder=$projectsFolder/owaiops/workspaces
+    workspacesFolder=$PROJECTS_FOLDER/owaiops/workspaces
     mkdir -p $workspacesFolder
     cd $workspacesFolder
     trace "Moved to OneWeb AIOps Workspaces folder :) "
