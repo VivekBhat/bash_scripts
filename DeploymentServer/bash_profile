@@ -1,0 +1,9 @@
+#!/bin/bash
+DS_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+BASH_SCRIPTS_FOLDER=$(dirname "$WSL_SCRIPT_DIR")
+
+LINUX_SCRIPTS_FOLDER=$BASH_SCRIPTS_FOLDER/Linux
+
+source $LINUX_SCRIPTS_FOLDER/bash_lib/common.sh
+source $LINUX_SCRIPTS_FOLDER/work/.hughes.inc
+source $LINUX_SCRIPTS_FOLDER/work/aws_helpers.sh
