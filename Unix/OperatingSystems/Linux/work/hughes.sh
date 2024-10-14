@@ -41,5 +41,7 @@ export REQUESTS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
 add_to_path $HOME/go/bin
 add_to_path $HOME/flink/bin
 add_to_path /usr/local/go/bin
+add_to_path $HOME/.local/bin
+
 add_to_path /usr/local/apache-maven-3.9.6/bin
 # setopt KSH_ARRAYS
