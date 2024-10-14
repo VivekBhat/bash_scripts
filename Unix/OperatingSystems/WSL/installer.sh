@@ -5,9 +5,6 @@ SCRIPTS_FOLDER=$(dirname "$WSL_SCRIPT_DIR")
 
 source $SCRIPTS_FOLDER/Linux/bash_lib/common.sh
 
-# Add ZSH Profile line
-# add_profile_line ~/.zshrc $WSL_SCRIPT_DIR/zsh_profile
-
 # Check for Oh My Bash installation
 check_oh_my_bash
 
