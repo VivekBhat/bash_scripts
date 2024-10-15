@@ -67,7 +67,7 @@ openProjects() {
 prof() {
     trace "Opening Visual Studio Code to edit the bash profile"
     (
-        cd $BASH_SCRIPTS_FOLDER
+        cd $ALL_SCRIPTS_FOLDER
         code . 1>/dev/null
     )
 }
