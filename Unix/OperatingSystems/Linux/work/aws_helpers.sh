@@ -83,15 +83,20 @@ function refresh-aws() {
 alias aws-kubectl-update='aws eks update-kubeconfig --region eu-west-2 --name insightalytics'
 
 function connect-ds() {
-    connect-ec2 "ia-deployment-server"
+    connect-ec2 "ia-deployment-server" $1
 }
 
 function connect-msk() {
-    connect-ec2 "MSK-CLIENT"
+    connect-ec2 "MSK-CLIENT" $1
 }
 
 function connect-ec2() {
     local instance_name=$1
+
+    if [ -n "$profile" ]; then
+        export AWS_PROFILE=$profile
+    fi
+
     local instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$instance_name" | jq -r '.Reservations[].Instances[] | select(.State.Name == "running") | .InstanceId')
     echo "connecting to instance_name=$instance_name, instance_id=$instance_id"
     aws ssm start-session --target $instance_id
