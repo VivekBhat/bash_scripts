@@ -92,6 +92,7 @@ function connect-msk() {
 
 function connect-ec2() {
     local instance_name=$1
+    local profile=$2
 
     if [ -n "$profile" ]; then
         echo "exporting AWS_PROFILE to '$profile'"
