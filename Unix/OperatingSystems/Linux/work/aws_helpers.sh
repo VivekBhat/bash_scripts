@@ -94,6 +94,7 @@ function connect-ec2() {
     local instance_name=$1
 
     if [ -n "$profile" ]; then
+        echo "exporting AWS_PROFILE to '$profile'"
         export AWS_PROFILE=$profile
     fi
 
