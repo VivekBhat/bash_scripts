@@ -71,7 +71,17 @@ function refresh-maven-token() {
 
 refresh-maven-token &>/dev/null
 
+function set-aws-profile() {
+    local profile=${1:-dev}
+    export AWS_PROFILE=$profile
+    trace "Using AWS_PROFILE $profile"
+}
+
 function refresh-aws() {
+    local profile=$1
+
+    set-aws-profile "$profile"
+
     aws sso login
     trace "Updated AWS SSO login"
     refresh-ecr-login &>/dev/null
@@ -92,12 +102,8 @@ function connect-msk() {
 
 function connect-ec2() {
     local instance_name=$1
-    local profile=$2
 
-    if [ -n "$profile" ]; then
-        echo "exporting AWS_PROFILE to '$profile'"
-        export AWS_PROFILE=$profile
-    fi
+    set-aws-profile "$2"
 
     local instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$instance_name" | jq -r '.Reservations[].Instances[] | select(.State.Name == "running") | .InstanceId')
     echo "connecting to instance_name=$instance_name, instance_id=$instance_id"
