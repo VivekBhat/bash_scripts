@@ -1,26 +1,12 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-echo "SCRIPT_DIR=$SCRIPT_DIR"
-# Function to add profile line if it doesn't exist
-add_profile_line() {
-    local profile_file="$1"
-    local profile_name="$2"
-    local profile_str="source $(pwd)/$profile_name"
+WSL_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+SCRIPTS_FOLDER=$(dirname "$WSL_SCRIPT_DIR")
 
-    if grep -q "$profile_str" "$profile_file"; then
-        echo "$profile_name Profile exists in $profile_file"
-    else
-        echo "$profile_str" >>"$profile_file"
-        echo "Added $profile_name in $profile_file successfully"
-    fi
-}
+source $SCRIPTS_FOLDER/Linux/bash_lib/common.sh
 
-(
-    cd $SCRIPT_DIR
-    # Add ZSH Profile line
-    add_profile_line ~/.zshrc zsh_profile
+# Add ZSH Profile line
+add_profile_line ~/.zshrc $WSL_SCRIPT_DIR/zsh_profile
 
-    # Add Bash Profile line
-    add_profile_line ~/.bashrc bash_profile
-)
+# Add Bash Profile line
+add_profile_line ~/.bashrc $WSL_SCRIPT_DIR/bash_profile
