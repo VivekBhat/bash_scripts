@@ -38,7 +38,14 @@ function refresh-maven-token() {
     export CODEARTIFACT_AUTH_TOKEN
 }
 
-refresh-maven-token &>/dev/null
+function refresh-aws() {
+    aws sso login
+    trace "Updated AWS SSO login"
+    refresh-ecr-login &>/dev/null
+    trace "Updated docker login"
+    refresh-maven-token &>/dev/null
+    trace "Updated maven token"
+}
 
 alias aws-kubectl-update='aws eks update-kubeconfig --region eu-west-2 --name insightalytics'
 
@@ -55,6 +62,30 @@ function connect-ec2() {
     local instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$instance_name" | jq -r '.Reservations[].Instances[] | select(.State.Name == "running") | .InstanceId')
     echo "connecting to instance_name=$instance_name, instance_id=$instance_id"
     aws ssm start-session --target $instance_id
+}
+
+function sort_cloudwatch_dashboard_json() {
+    local json_file=$1
+    local output_file="${json_file%.json}_sorted.json"
+
+    if [[ -z "$json_file" || ! -f "$json_file" ]]; then
+        echo "Please provide a valid JSON file."
+        return 1
+    fi
+
+    # Remove the output file if it exists to ensure it gets overwritten
+    [[ -f "$output_file" ]] && rm "$output_file"
+
+    jq '.widgets |= sort_by(.y, .x)' "$json_file" >"$output_file"
+
+    if [[ $? -eq 0 ]]; then
+        echo "Sorted JSON saved to $output_file"
+
+        cat $output_file | xclip -selection clipboard
+        echo "Copied the file to clipboard"
+    else
+        echo "Failed to sort the JSON file."
+    fi
 }
 
 export AWS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
