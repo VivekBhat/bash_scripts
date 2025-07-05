@@ -96,3 +96,24 @@ vivek() {
 ${NC}
 "
 }
+
+
+# Function to check if Oh My Bash is installed
+check_oh_my_bash() {
+    if [ ! -d "$HOME/.oh-my-bash" ]; then
+        echo "Oh My Bash is not installed."
+        read -p "Would you like to install it? (y/n): " install_choice
+        if [[ "$install_choice" =~ ^[Yy]$ ]]; then
+            # Install Oh My Bash
+            echo "Installing Oh My Bash..."
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+            echo "Oh My Bash has been installed."
+        else
+            echo "Skipping Oh My Bash installation."
+        fi
+    else
+        echo "Oh My Bash is already installed."
+    fi
+}
+
+
