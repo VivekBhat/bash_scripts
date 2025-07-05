@@ -171,3 +171,17 @@ check_and_install_zsh() {
         fi
     fi
 }
+
+function pyvenv_here() {
+    folder_name=$(basename "$(pwd)")
+    echo folder=$folder_name
+    venv_path="$HOME/.virtualenvs/$folder_name"
+    echo venv_path=$venv_path
+    if [ ! -d "$venv_path" ]; then
+        echo "Creating virtual environment for $folder_name..."
+        python3 -m venv "$venv_path"
+    fi
+
+    source "$venv_path/bin/activate"
+    echo "Activated virtual environment for $folder_name."
+}
