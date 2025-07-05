@@ -2,7 +2,7 @@ Clear-Host
 
 $WShell = New-Object -com "Wscript.Shell"
 $count=0
-$waitUntilMinutes= 1  # Set your desired threshold here
+$waitUntilMinutes= 60
 
 $startTime = Get-Date -Format "hh:mm:ss tt"
 $stopTime = (Get-Date).AddMinutes($waitUntilMinutes).ToString("hh:mm:ss tt")
