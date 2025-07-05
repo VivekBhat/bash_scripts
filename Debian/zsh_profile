@@ -37,7 +37,9 @@ openProjects(){
 #--------------------------------------
 
 ow () {
-	cd $projectsFolder/owaiops
+	owProjectFolder=$projectsFolder/owaiops 
+	mkdir -p $owProjectFolder
+	cd $owProjectFolder
 	echo "Moved to OneWeb AIOps project folder :) "
 	ll
 }
@@ -63,3 +65,7 @@ runCleanupScripts
 
 # /Users/vivekbht/.toolbox/bin
 # export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/apollo/env/SDETools/bin:/Users/vivekbht/.toolbox/bin
+
+# export MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
+# export PATH=$PATH:/usr/local/go/bin/
+source $HOME/Projects/bash_scripts/Debian/common
