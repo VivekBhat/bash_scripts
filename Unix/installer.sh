@@ -1,19 +1,20 @@
 #!/bin/bash
 
-UNIX_SCRIPT_DIR=$(dirname "$0")
+export UNIX_SCRIPT_DIR=$(dirname "$0")
 # Define the directory containing the operating systems
-OS_DIR="$UNIX_SCRIPT_DIR/OperatingSystems"
+PC_DIR="$UNIX_SCRIPT_DIR/computers"
 
-source $OS_DIR/Linux/bash_lib/common.sh
+# Source this file for the functions to be available
+source $UNIX_SCRIPT_DIR/common_scripts/bash_lib/common.sh
 
 # Function to display available OSs
 function list_os() {
     echo "Available Operating Systems:"
 
     # Check if the directory exists
-    if [[ -d "$OS_DIR" ]]; then
+    if [[ -d "$PC_DIR" ]]; then
         local os_count=0
-        for dir in "$OS_DIR"/*; do
+        for dir in "$PC_DIR"/*; do
             if [[ -d "$dir" ]]; then
                 echo " [$os_count] $(basename "$dir")" # Print directory name
                 os_count=$((os_count + 1))
@@ -25,7 +26,7 @@ function list_os() {
             exit 1
         fi
     else
-        echo "Directory $OS_DIR does not exist."
+        echo "Directory $PC_DIR does not exist."
         exit 1
     fi
 }
@@ -33,7 +34,7 @@ function list_os() {
 # Function to run the installer script in the selected directory
 function run_installer() {
     local choice=$1
-    local selected_dir="$(find "$OS_DIR" -mindepth 1 -maxdepth 1 -type d | sort | sed -n "$((choice + 1))p")"
+    local selected_dir="$(find "$PC_DIR" -mindepth 1 -maxdepth 1 -type d | sort | sed -n "$((choice + 1))p")"
     if [[ -f "$selected_dir/installer.sh" ]]; then
         echo "Setting up $(basename "$selected_dir")..."
         bash "$selected_dir/installer.sh"
@@ -46,7 +47,7 @@ function run_installer() {
 list_os
 
 # Get the total number of directories
-total_dirs=$(find "$OS_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
+total_dirs=$(find "$PC_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
 
 # Prompt for user input
 read -p "Select an operating system by entering the corresponding number: " user_input

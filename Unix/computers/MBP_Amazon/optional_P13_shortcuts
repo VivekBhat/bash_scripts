@@ -7,16 +7,16 @@ alias bbbc='brc --allPackages "brazil-build clean && brazil-build build"'
 alias bbi='bb install'
 alias bbre='bb release'
 alias kr='/usr/kerberos/bin/kinit -f'
-  
+
 if [ -f ~/.zshrc-dev-dsk-post ]; then
     source ~/.zshrc-dev-dsk-post
 fi
-  
+
 export JAVA_HOME=/apollo/env/JavaSE8/jdk1.8
 export PATH=$JAVA_HOME/bin:$PATH
-  
+
 # For key binding short cut
-bindkey "^[[1;5C" forward-word # Move cursor forward once a word when press ctrl + right arrow.
-bindkey "^[[1;5D" backward-word # Move cursor backward once a word when press ctrl + left arrow.
+bindkey "^[[1;5C" forward-word   # Move cursor forward once a word when press ctrl + right arrow.
+bindkey "^[[1;5D" backward-word  # Move cursor backward once a word when press ctrl + left arrow.
 bindkey "^[OH" beginning-of-line # Move cursor to the beginning of line when press Home.
-bindkey "^[OF" end-of-line # Move cursor to the end of line when press End.
+bindkey "^[OF" end-of-line       # Move cursor to the end of line when press End.
