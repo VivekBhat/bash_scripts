@@ -23,5 +23,12 @@ function CleanupFolders{
     rm *.lnk
 }
 
-CleanupFolders "$HOME\OneDrive - Microsoft\Desktop"
+$desktopPath = [Environment]::GetFolderPath("Desktop")
+$documentsPath = [Environment]::GetFolderPath("MyDocuments")
+
+CleanupFolders $desktopPath
+CleanupFolders $documentsPath
 CleanupFolders "$HOME\Downloads"
+
+# CleanupFolders "$HOME\OneDrive - Microsoft\Desktop"
+# CleanupFolders "$HOME\Downloads"
