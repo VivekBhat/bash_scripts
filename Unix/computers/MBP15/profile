@@ -17,3 +17,6 @@ source $COMMON_SCRIPTS_FOLDER/bash_lib/personal_helpers.sh
 source $COMMON_SCRIPTS_FOLDER/work/hughes.sh
 source $COMMON_SCRIPTS_FOLDER/work/aws_helpers.sh
 source $COMMON_SCRIPTS_FOLDER/work/backup_owaiops.sh
+
+# Run the cleanup script every time terminal is launched
+$UNIX_DIR/cleanup/cleanup.sh
