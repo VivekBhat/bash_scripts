@@ -7,36 +7,69 @@ function refresh-maven-token() {
     # Define the file where the token and expiration timestamp will be stored
     TOKEN_FILE=~/.maven_token_info
 
-    # Check if the token file exists and read the expiration time
-    if [[ -f $TOKEN_FILE ]]; then
-        # Read the expiration time from the file
-        TOKEN_EXPIRATION=$(cat $TOKEN_FILE | grep 'expiration' | cut -d'=' -f2)
-        CURRENT_TIME=$(date +%s)
+    # Initialize variables
+    CURRENT_TIME=$(date +%s)
+    STORED_AUTH_TOKEN=""
+    TOKEN_EXPIRATION=""
 
-        # Check if the current time is greater than the expiration time
-        if [[ $CURRENT_TIME -lt $TOKEN_EXPIRATION ]]; then
-            echo "No need to update CodeArtifact token as it is still valid."
-            return 0
+    # Check if the token file exists
+    if [[ -f $TOKEN_FILE ]]; then
+        # Extract token and expiration time from the file
+        STORED_AUTH_TOKEN=$(grep 'authorizationToken' $TOKEN_FILE | cut -d'=' -f2)
+        TOKEN_EXPIRATION=$(grep 'expiration' $TOKEN_FILE | cut -d'=' -f2)
+
+        # echo "STORED_AUTH_TOKEN=$STORED_AUTH_TOKEN"
+        # echo "TOKEN_EXPIRATION=$TOKEN_EXPIRATION"
+
+        # Validate the token's expiration
+        if [[ -z $STORED_AUTH_TOKEN || $CURRENT_TIME -ge $TOKEN_EXPIRATION ]]; then
+            echo "Stored CodeArtifact token is expired or invalid. Fetching a new one..."
+            STORED_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
+                --domain hughes \
+                --domain-owner 181148949657 \
+                --region eu-west-2 \
+                --query authorizationToken \
+                --output text)
+
+            # Update the token file with the new token and expiration time
+            TOKEN_EXPIRATION=$(($CURRENT_TIME + 43200)) # 12 hours
+            # remove the existing file
+            rm -rf $TOKEN_FILE
+            {
+                echo "authorizationToken=$STORED_AUTH_TOKEN"
+                echo "expiration=$TOKEN_EXPIRATION"
+            } >$TOKEN_FILE
+        else
+            echo "Stored CodeArtifact token is valid."
         fi
+    else
+        # If the file doesn’t exist, fetch a new token
+        echo "Token file does not exist. Fetching a new CodeArtifact token..."
+        STORED_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
+            --domain hughes \
+            --domain-owner 181148949657 \
+            --region eu-west-2 \
+            --query authorizationToken \
+            --output text)
+
+        # Save the new token and expiration time
+        TOKEN_EXPIRATION=$(($CURRENT_TIME + 43200)) # 12 hours
+        {
+            echo "authorizationToken=$STORED_AUTH_TOKEN"
+            echo "expiration=$TOKEN_EXPIRATION"
+        } >$TOKEN_FILE
     fi
 
-    # If the token is expired or the file does not exist, refresh the token
-    echo "Refreshing CodeArtifact token..."
-    CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
-        --domain hughes \
-        --domain-owner 181148949657 \
-        --region eu-west-2 \
-        --query authorizationToken \
-        --output text)
-
-    # Store the token and the new expiration time (current time + 12 hours)
-    EXPIRATION_TIMESTAMP=$(($(date +%s) + 43200))
-    echo "authorizationToken=$CODEARTIFACT_AUTH_TOKEN" >$TOKEN_FILE
-    echo "expiration=$EXPIRATION_TIMESTAMP" >>$TOKEN_FILE
-
-    # Export the token for the current session
-    export CODEARTIFACT_AUTH_TOKEN
+    # Check if the environment variable is set
+    if [[ -z $CODEARTIFACT_AUTH_TOKEN ]]; then
+        export CODEARTIFACT_AUTH_TOKEN=$STORED_AUTH_TOKEN
+        echo "CODEARTIFACT_AUTH_TOKEN has been exported to the environment."
+    else
+        echo "CODEARTIFACT_AUTH_TOKEN is already set in the environment."
+    fi
 }
+
+refresh-maven-token &>/dev/null
 
 function refresh-aws() {
     aws sso login

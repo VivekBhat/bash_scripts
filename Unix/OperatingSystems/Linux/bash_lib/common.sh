@@ -112,3 +112,38 @@ check_oh_my_bash() {
         echo "Oh My Bash is already installed."
     fi
 }
+
+# Function to check if GitHub Desktop is installed
+check_github_desktop() {
+    if ! command -v github-desktop &>/dev/null; then
+        echo "GitHub Desktop is not installed."
+        read -p "Would you like to install GitHub Desktop? (y/n): " install_choice
+        if [[ "$install_choice" =~ ^[Yy]$ ]]; then
+            # Install GitHub Desktop for Linux
+            echo "Installing GitHub Desktop..."
+            wget -qO - https://apt.packages.shiftkey.dev/gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/shiftkey-packages.gpg >/dev/null
+            sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/shiftkey-packages.gpg] https://apt.packages.shiftkey.dev/ubuntu/ any main" > /etc/apt/sources.list.d/shiftkey-packages.list'
+            sudo apt update && sudo apt install github-desktop
+            echo "GitHub Desktop has been installed."
+        else
+            echo "Skipping GitHub Desktop installation."
+        fi
+    else
+        echo "GitHub Desktop is already installed."
+    fi
+}
+
+check_github_desktop_automatic_update() {
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/kontr0x/github-desktop-install/main/installGitHubDesktop.sh)"
+}
+
+install_wslu() {
+    sudo apt install gnupg2 apt-transport-https -y
+    wget -O - https://pkg.wslutiliti.es/public.key | sudo gpg -o /usr/share/keyrings/wslu-archive-keyring.pgp --dearmor
+
+    echo "deb [signed-by=/usr/share/keyrings/wslu-archive-keyring.pgp] https://pkg.wslutiliti.es/debian \
+$(. /etc/os-release && echo "$VERSION_CODENAME") main" | sudo tee /etc/apt/sources.list.d/wslu.list
+
+    sudo apt update  -y
+    sudo apt install wslu  -y
+}

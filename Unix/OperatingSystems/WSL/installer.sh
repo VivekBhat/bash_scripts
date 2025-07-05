@@ -5,8 +5,8 @@ SCRIPTS_FOLDER=$(dirname "$WSL_SCRIPT_DIR")
 
 source $SCRIPTS_FOLDER/Linux/bash_lib/common.sh
 
-# Check for Oh My Bash installation
 check_oh_my_bash
+check_github_desktop_automatic_update
 
 # Add Bash Profile line
 add_profile_line ~/.bashrc $WSL_SCRIPT_DIR/bash_profile

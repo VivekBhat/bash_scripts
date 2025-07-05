@@ -12,3 +12,5 @@ source $LINUX_SCRIPTS_FOLDER/bash_lib/git_helpers.sh
 source $LINUX_SCRIPTS_FOLDER/work/hughes.sh
 source $LINUX_SCRIPTS_FOLDER/work/aws_helpers.sh
 source $LINUX_SCRIPTS_FOLDER/work/backup_owaiops.sh
+
+export BROWSER=wslview
