@@ -71,72 +71,75 @@ moveTo() {
     mkdir -p $2
     mv $1 $2 2>/dev/null
 }
-moveAudio() {
-    from=$1
-    to=$2
-    moveTo "$from/*.mp3" "$to"
-    moveTo "$from/*.MP3" "$to"
-    moveTo "$from/*.wav" "$to"
-    moveTo "$from/*.WAV" "$to"
 
+moveAudio() {
+    local from="$1"
+    local to="$2"
+    local extensions=("mp3" "MP3" "wav" "WAV")
+
+    for ext in "${extensions[@]}"; do
+        moveTo "$from/*.$ext" "$to"
+    done
 }
 
 moveImages() {
-    from=$1
-    to=$2
-    moveTo "$from/*.jpg" "$to"
-    moveTo "$from/*.Jpg" "$to"
-    moveTo "$from/*.jpeg" "$to"
-    moveTo "$from/*.JPEG" "$to"
-    moveTo "$from/*.JPG" "$to"
-    moveTo "$from/*.png" "$to"
-    moveTo "$from/*.PNG" "$to"
-    moveTo "$from/*.heic" "$to"
-    moveTo "$from/*.HEIC" "$to"
+    local from="$1"
+    local to="$2"
+    local extensions=("jpg" "Jpg" "jpeg" "JPEG" "JPG" "png" "PNG" "heic" "HEIC")
+
+    for ext in "${extensions[@]}"; do
+        moveTo "$from/*.$ext" "$to"
+    done
 }
 
 movePDFs() {
-    from=$1
-    to=$2
-    moveTo "$from/*pdf" "$to"
-    moveTo "$from/*PDF" "$to"
+    local from="$1"
+    local to="$2"
+    local extensions=("pdf" "PDF")
+
+    for ext in "${extensions[@]}"; do
+        moveTo "$from/*.$ext" "$to"
+    done
 }
 
 moveConfigs() {
-    from=$1
-    to=$2
-    moveTo "$from/*xml" "$to"
-    moveTo "$from/*json" "$to"
-    moveTo "$from/*yaml" "$to"
-    moveTo "$from/*yml" "$to"
-    moveTo "$from/*.properties" "$to"
+    local from="$1"
+    local to="$2"
+    local extensions=("xml" "json" "yaml" "yml" "properties")
+
+    for ext in "${extensions[@]}"; do
+        moveTo "$from/*.$ext" "$to"
+    done
 }
 
 moveVideos() {
-    from=$1
-    to=$2
-    moveTo "$from/*MOV" "$to"
-    moveTo "$from/*mov" "$to"
-    moveTo "$from/*mp4" "$to"
-    moveTo "$from/*MP4" "$to"
+    local from="$1"
+    local to="$2"
+    local extensions=("MOV" "mov" "mp4" "MP4")
+
+    for ext in "${extensions[@]}"; do
+        moveTo "$from/*.$ext" "$to"
+    done
 }
 
 moveMSDocs() {
-    from=$1
-    to=$2
-    moveTo "$from/*docx" "$to"
-    moveTo "$from/*txt" "$to"
-    moveTo "$from/*csv" "$to"
-    moveTo "$from/*xlsx" "$to"
-    moveTo "$from/*doc" "$to"
-    moveTo "$from/*pptx" "$to"
+    local from="$1"
+    local to="$2"
+    local extensions=("docx" "txt" "csv" "xlsx" "doc" "pptx")
+
+    for ext in "${extensions[@]}"; do
+        moveTo "$from/*.$ext" "$to"
+    done
 }
 
 moveZIPs() {
-    from=$1
-    to=$2
-    moveTo "$from/*zip" "$to"
-    moveTo "$from/*ZIP" "$to"
+    local from="$1"
+    local to="$2"
+    local extensions=("zip" "ZIP")
+
+    for ext in "${extensions[@]}"; do
+        moveTo "$from/*.$ext" "$to"
+    done
 }
 
 main() {
