@@ -169,6 +169,9 @@ alias lla='ls -la'
 
 # DOCKER_ID_USER="vivekbhat"
 
+export PATH=$PATH:$HOME/.toolbox/bin
+# export JAVA_HOME=$(/usr/libexec/java_home)
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home
 
 # export http_proxy=http://proxy-chain.intel.com:911
 # export https_proxy=http://proxy-chain.intel.com:912
