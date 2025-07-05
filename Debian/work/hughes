@@ -9,6 +9,14 @@ function ow() {
     trace "Moved to OneWeb AIOps project folder :) "
 }
 
+function ws() {
+    workspacesFolder=$projectsFolder/owaiops/workspaces
+    mkdir -p $workspacesFolder
+    cd $workspacesFolder
+    trace "Moved to OneWeb AIOps Workspaces folder :) "
+    ll
+}
+
 function workon() {
     source $HOME/.virtualenvs/$1/bin/activate
     cd $REPO_DIR/$1
