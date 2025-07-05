@@ -1,0 +1,101 @@
+#!/bin/bash
+export bashProfileVersion="1.0.2"
+
+# Black        0;30     Dark Gray     1;30
+# Red          0;31     Light Red     1;31
+# Green        0;32     Light Green   1;32
+# Brown/Orange 0;33     Yellow        1;33
+# Blue         0;34     Light Blue    1;34
+# Purple       0;35     Light Purple  1;35
+# Cyan         0;36     Light Cyan    1;36
+# Light Gray   0;37     White         1;37
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+CYAN='\033[0;36m'
+NC='\033[0m' 
+# printf "By ${RED}Vivek Bhat ${NC}\n"
+
+
+projectsFolder=$HOME/Documents/Projects
+scriptsFolder=$projectsFolder/bash_scripts
+
+runCleanupScripts(){
+	mkdir -p $projectsFolder
+	bash $scriptsFolder/cleanup $HOME
+}
+runCleanupScripts
+
+updatebashscript(){
+	cp $scriptsFolder/Debian/bash_profile ~/.bash_profile
+	chmod +x ~/.bash_profile
+}
+
+#--------------------------------------
+# Function to move to desktop quickly
+#--------------------------------------
+
+desktop () {
+	cd $home/Desktop
+	echo "Moved to Desktop :) "
+}
+
+#--------------------------------------
+# Function to move to OneWeb Projects quickly
+#--------------------------------------
+
+ow () {
+	cd $projectsFolder/$folder
+	echo "Moved to CDO folder :) "
+}
+
+#--------------------------------------
+# Function to edit bash_profile
+#--------------------------------------
+
+prof(){
+	code $scriptsFolder
+}
+
+#--------------------------------------
+# Function to Source bash profile
+#--------------------------------------
+src(){
+	source ~/.bashrc
+	echo "Bash Profile Version: $bashProfileVersion"
+}
+
+# Source: http://patorjk.com/software/taag/#p=display&f=Graffiti&t=bhatvive
+
+#--------------------------------------
+# :-|
+#--------------------------------------
+vivek(){
+printf "${CYAN}
+:'#######::'########::'##::::'##::::'###::::'########:'##::::'##:'####:'##::::'##:'########:
+'##.... ##: ##.... ##: ##:::: ##:::'## ##:::... ##..:: ##:::: ##:. ##:: ##:::: ##: ##.....::
+ ##'### ##: ##:::: ##: ##:::: ##::'##:. ##::::: ##:::: ##:::: ##:: ##:: ##:::: ##: ##:::::::
+ ## ### ##: ########:: #########:'##:::. ##:::: ##:::: ##:::: ##:: ##:: ##:::: ##: ######:::
+ ## #####:: ##.... ##: ##.... ##: #########:::: ##::::. ##:: ##::: ##::. ##:: ##:: ##...::::
+ ##.....::: ##:::: ##: ##:::: ##: ##.... ##:::: ##:::::. ## ##:::: ##:::. ## ##::: ##:::::::
+. #######:: ########:: ##:::: ##: ##:::: ##:::: ##::::::. ###::::'####:::. ###:::: ########:
+:.......:::........:::..:::::..::..:::::..:::::..::::::::...:::::....:::::...:::::........::
+${NC}
+"
+}
+
+checking(){
+	echo "checking"
+}
+
+alias ll='ls -l'
+alias lla='ls -la'
+
+DOCKER_ID_USER="vivekbhat"
+
+export AWS_ACCESS_KEY="AKIAIF534K4FFXKCQ35A"
+export AWS_SECRET_KEY="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"
+
+export PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '
+
