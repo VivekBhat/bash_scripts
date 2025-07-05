@@ -38,9 +38,9 @@ function aws-setcreds() {
     aws-set-credentials.py --env $1 && aws-kubectl-update
 }
 
-FLINK_HOME=$HOME/Projects/owaiops
-REPO_DIR=$HOME/Projects/owaiops
-MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
+export FLINK_HOME=$HOME/Projects/owaiops
+export REPO_DIR=$HOME/Projects/owaiops
+export MLAIOPS_MASTER_PASSWORD_FILE=$HOME/.credentials/iactl_creds
 
 # Add directories to PATH using the custom function
 add_to_path $HOME/go/bin
