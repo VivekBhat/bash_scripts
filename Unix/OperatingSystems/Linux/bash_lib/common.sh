@@ -2,8 +2,6 @@
 
 ProfileVersion="2.1.0"
 
-COMMON_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-
 # Function to add profile line if it doesn't exist
 add_profile_line() {
     local profile_file="$1"
@@ -97,7 +95,6 @@ ${NC}
 "
 }
 
-
 # Function to check if Oh My Bash is installed
 check_oh_my_bash() {
     if [ ! -d "$HOME/.oh-my-bash" ]; then
@@ -115,5 +112,3 @@ check_oh_my_bash() {
         echo "Oh My Bash is already installed."
     fi
 }
-
-
