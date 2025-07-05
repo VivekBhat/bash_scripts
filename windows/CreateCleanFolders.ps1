@@ -1,11 +1,9 @@
 
 function CreateCleanFolders{
     param (
-        $Folder
+        $CurrDirectory
     )
-
-    $currDir = "$HOME\$Folder\"
-    Set-Location $currDir
+    Set-Location $CurrDirectory
     $myFolders = "ppts","pdfs","word","excel","images","text_files"
 
     $FolderName = "docs"
@@ -19,7 +17,8 @@ function CreateCleanFolders{
 
         }
     } 
+    Set-Location $CurrDirectory
 }
 
-CreateCleanFolders "Desktop"
-CreateCleanFolders "Downloads"
+CreateCleanFolders "$HOME\OneDrive - Microsoft\Desktop"
+CreateCleanFolders "$HOME\Downloads"

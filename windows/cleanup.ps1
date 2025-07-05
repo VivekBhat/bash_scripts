@@ -1,5 +1,5 @@
 $scriptFolder=(Get-Item .).FullName
-./create_directories.ps1
+./CreateCleanFolders.ps1
 Set-Location $scriptFolder
-./cleanup_windows.ps1
+./CleanupFolders.ps1
 Set-Location $scriptFolder
