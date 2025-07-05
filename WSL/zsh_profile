@@ -1,0 +1,11 @@
+scriptDir=$(dirname "$0")
+
+#--------------------------------------
+# Function to Source bash profile
+#--------------------------------------
+src() {
+	source ~/.zshrc
+	echo "ZSH Profile Version: $ProfileVersion"
+}
+
+source $scriptDir/common
