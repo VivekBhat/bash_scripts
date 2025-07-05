@@ -1,9 +1,10 @@
 #!/bin/bash
+#####################################################
+# First run the Unix/installer.sh to install in WSL #
+#####################################################
 
-WSL_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-SCRIPTS_FOLDER=$(dirname "$WSL_SCRIPT_DIR")
-
-source $SCRIPTS_FOLDER/Linux/bash_lib/common.sh
+SCRIPT_DIR=$(dirname "$0")
+source $UNIX_SCRIPT_DIR/common_scripts/bash_lib/common.sh
 
 check_oh_my_bash
 check_github_desktop_automatic_update
