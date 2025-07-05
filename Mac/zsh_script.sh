@@ -3,7 +3,13 @@
 #--------------------------------------
 
 projectsFolder=$HOME/Projects
-scriptsFolder=$PWD
+scriptsFolder=$projectsFolder/bash_scripts/Mac
+
+# cd & ls in one
+function chpwd() {
+    emulate -L zsh
+    ls
+}
 
 runCleanupScripts(){
 	mkdir -p $projectsFolder

@@ -25,10 +25,10 @@ cleaning(){
     moveConfigs $1 "$2/Configs"
     moveVideos $1 "$2/Videos"
     moveAudio $1 "$2/Videos"
+    moveInstallers $1 "$2/Installers"
     removeCalendarInvites $1
     removeHTMLDownloads $1
     removeExecutables $1
-    removeInstallers $1
     removeShortcuts $1
 }
 
@@ -46,9 +46,11 @@ removeCalendarInvites(){
     rm -rf $1/*.ics   
 }
 
-removeInstallers(){
-    rm -rf $1/*.msi   
-    rm -rf $1/*.dmg
+moveInstallers(){
+    from=$1
+    to=$2
+    moveTo "$from/*msi" "$to"
+    moveTo "$from/*dmg" "$to"    
 }
 
 removeHTMLDownloads(){
