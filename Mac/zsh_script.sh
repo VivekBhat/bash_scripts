@@ -2,6 +2,7 @@
 # Personalized additions
 #--------------------------------------
 
+bashProfileVersion=1
 projectsFolder=$HOME/Projects
 scriptsFolder=$projectsFolder/bash_scripts/Mac
 
@@ -66,9 +67,17 @@ notes(){
 }
 
 runCleanupScripts
+# export PATH=$PATH:/Users/vivekbht/.toolbox/bin
+# export PATH="/usr/local/opt/node@12/bin:$PATH"
+export PATH="/usr/local/opt/node@14/bin:$PATH"
+export PATH="/Users/vivekbht/.toolbox/bin:$PATH"
+export PATH="/bin:$PATH"
 
-export PATH=$PATH:/Users/vivekbht/.toolbox/bin
+# export PATH="/usr/local/opt/node@14/bin:/Users/vivekbht/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+# export PATH="/usr/local/opt/node@14/bin:/Users/vivekbht/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/curl/bin:/Users/vivekbht/aws-cli/bin:/Users/vivekbht/.toolbox/bin"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home"
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home"
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home"
 echo $PATH
 # /Users/vivekbht/.toolbox/bin
 # export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/vivekbht/.toolbox/bin

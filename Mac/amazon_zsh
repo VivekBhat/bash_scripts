@@ -9,19 +9,33 @@ setopt NO_BEEP
 
 # export PATH=/apollo/env/eclipse-4.2/bin:$PATH
 # export PATH=/apollo/env/DOPETools/bin:$PATH
+export MY_AWS_ACCOUNT="340553229858"
 
 alias zshrc='code ~/.zshrc'
 alias ws='cd ~/workplace'
 
-function dice-review() {
-    COMMIT_MSG=$(git log -1 --pretty=%B)
-
-    NEW_DRY_RUN=$(brazil ws --dryrun | grep 'https://build.amazon.com')
-    COMMIT_MSG=$(echo $COMMIT_MSG | sed "s|DRY RUN :.*|DRY RUN : $NEW_DRY_RUN|")
-    git commit --amend -m $COMMIT_MSG
-
-    PEOPLE=$(echo $COMMIT_MSG | grep REVIEWERS | sed "s|REVIEWERS : ||")
-    post-review -u dice -i $PEOPLE
+function ftcDiffGenerator() {
+    # Make sure your changes are in a different branch
+    # And, you are passing in the branch name 
+    read -r "answer?Please enter your answer: "
+    if [[ "$answer" =~ ^[Nn][Oo]?$ ]]; then
+        echo "You answered no."
+        return 1 # return false to exit the function
+    else
+        echo "You answered yes or something else."
+        # continue with the rest of the script here
+    fi
+    echo "Moving to alarms folder"
+    cd /Volumes/workplace/FTCAlarmist/src/FTCAlarmist/configuration/etc/alarms
+    echo "generating tmp.txt"
+    $(brazil-bootstrap -p Alarmist-1.0)/bin/alarmist process -c > tmp.txt
+    echo "commiting tmp"
+    git add . && git commit -m "added tmp"
+    git merge --squash $1
+    $(brazil-bootstrap -p Alarmist-1.0)/bin/alarmist process -c > tmp.txt
+    git diff tmp.txt > diff.txt
+    open diff.txt
+    mv diff.txt ~/Desktop/
 }
 
 function dice-cr() {
@@ -46,6 +60,16 @@ function uploadFruitsResultsToS3() {
     s3put ${fileName}_runReport.txt
     s3put ${fileName}_fruitsUi.html
 }
+
+function rebuildSAASSam() {
+    ws
+    cd SpeedAccuracyAttributionSystem/src/SpeedAttributionSystemCDK
+    SKIP_TESTS=true brazil-recursive-cmd brazil-build build --allPackages
+    sam build --template build/cdk.out/SpeedAccuracyAttributionSystem-Service-Local.template.json OfferAnalyzer
+    ada credentials update --account=767365285487 --provider=conduit --role=IibsAdminAccess-DO-NOT-DELETE --once
+    DOCKER_HOST=unix://$HOME/.docker/run/docker.sock sam local invoke --profile default -e ../SpeedAttributionLambdaTests/src/main/resources/sqs-offer-attribution-notification.json -d 5005
+}
+
 alias frs3=uploadFruitsResultsToS3
 
 alias ..="cd .."
@@ -60,7 +84,10 @@ alias gcan='git commit --amend --no-edit'
 alias gd='git diff'
 alias gl='git log'
 alias gs='git status'
-
+# brazil-recursive-cmd --allPackages brazil-build clean
+alias bbbc='brc --allPackages "brazil-build clean && brazil-build build"'
+alias bbi='bb install'
+alias kr='/usr/kerberos/bin/kinit -f'
 
 alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
@@ -74,13 +101,16 @@ alias bbr='brc brazil-build'
 alias bball='brc --allPackages'
 alias bbb='brc --allPackages brazil-build'
 alias bbra='bbr apollo-pkg'
+alias brcfast='SKIP_TESTS=true brazil-recursive-cmd brazil-build build'
+
 
 # alias bb='brazil-build | tee out'
 # alias bba='brazil-build apollo-pkg | tee out'
 # alias bbb='brazil-build build | tee out'
-# alias bbc='brazil-build clean | tee out'
+alias bbc='brazil-build clean | tee out'
+alias bbcoverage='brazil-build coverage | tee out'
 # alias bbi='brazil-build test-integration-assert | tee out'
-# alias bbr='brazil-build release | tee out'
+alias bbr='brazil-build release | tee out'
 # alias bbs='brazil-build server | tee out'
 # alias bbt='brazil-build test | tee out'
 
