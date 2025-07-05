@@ -2,8 +2,9 @@
 
 ProfileVersion="2.1.0"
 
-scriptDir=$(dirname "$0")
-scriptsFolder=$(dirname "$scriptDir")
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
+scriptsFolder=$(dirname "$SCRIPT_DIR")
 projectsFolder=$(dirname "$scriptsFolder")
 
 # Organinze and cleanup all the files
@@ -87,6 +88,6 @@ ${NC}
 "
 }
 
-source $scriptDir/work/hughes
-source $scriptDir/work/aws_helpers.sh
+source $SCRIPT_DIR/work/hughes
+source $SCRIPT_DIR/work/aws_helpers.sh
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
