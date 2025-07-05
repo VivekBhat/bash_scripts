@@ -1,5 +1,9 @@
 #!/bin/bash
-myHome=$1
+if [ -z "$1" ]; then
+    myHome="$HOME"
+else
+    myHome="$1"
+fi
 
 downloads=$myHome/Downloads
 downloadsImageFolder=$downloads/Images
@@ -17,7 +21,7 @@ desktopDocsFolder=$moveFolder/Documents
 desktopZipFolder=$moveFolder/Zips
 desktopConfigFolder=$moveFolder/Configs
 
-cleaning(){
+cleaning() {
     moveImages $1 "$2/Images"
     movePDFs $1 "$2/Pdfs"
     moveMSDocs $1 "$2/Docs"
@@ -32,73 +36,73 @@ cleaning(){
     removeShortcuts $1
 }
 
-cleanDesktop(){
+cleanDesktop() {
     echo "Organizing desktop folder.."
     cleaning $desktop $desktop/Misc
 }
 
-cleanDownloads(){
+cleanDownloads() {
     echo "Organizing downloads folder.."
-    cleaning $downloads $downloads   
+    cleaning $downloads $downloads
 }
 
-removeCalendarInvites(){
-    rm -rf $1/*.ics   
+removeCalendarInvites() {
+    rm -rf $1/*.ics
 }
 
-removeInstallers(){
-    rm -rf $1/*.msi   
+removeInstallers() {
+    rm -rf $1/*.msi
     rm -rf $1/*.dmg
 }
 
-removeHTMLDownloads(){
-    rm -rf $1/*.html   
+removeHTMLDownloads() {
+    rm -rf $1/*.html
 }
 
-removeExecutables(){
-    rm -rf $1/*.exe   
+removeExecutables() {
+    rm -rf $1/*.exe
 }
 
-removeShortcuts(){
+removeShortcuts() {
     rm -rf *.lnk
 }
 
-moveTo(){
-    mkdir -p $2 
+moveTo() {
+    mkdir -p $2
     mv $1 $2 2>/dev/null
 }
-moveAudio(){
+moveAudio() {
     from=$1
     to=$2
-    moveTo "$from/*.mp3" "$to" 
-    moveTo "$from/*.MP3" "$to" 
-    moveTo "$from/*.wav" "$to" 
-    moveTo "$from/*.WAV" "$to" 
-    
+    moveTo "$from/*.mp3" "$to"
+    moveTo "$from/*.MP3" "$to"
+    moveTo "$from/*.wav" "$to"
+    moveTo "$from/*.WAV" "$to"
+
 }
 
-moveImages(){
+moveImages() {
     from=$1
     to=$2
-    moveTo "$from/*.jpg" "$to" 
-    moveTo "$from/*.Jpg" "$to" 
-    moveTo "$from/*.jpeg" "$to" 
-    moveTo "$from/*.JPEG" "$to" 
-    moveTo "$from/*.JPG" "$to" 
-    moveTo "$from/*.png" "$to" 
+    moveTo "$from/*.jpg" "$to"
+    moveTo "$from/*.Jpg" "$to"
+    moveTo "$from/*.jpeg" "$to"
+    moveTo "$from/*.JPEG" "$to"
+    moveTo "$from/*.JPG" "$to"
+    moveTo "$from/*.png" "$to"
     moveTo "$from/*.PNG" "$to"
-    moveTo "$from/*.heic" "$to" 
+    moveTo "$from/*.heic" "$to"
     moveTo "$from/*.HEIC" "$to"
 }
 
-movePDFs(){
+movePDFs() {
     from=$1
     to=$2
     moveTo "$from/*pdf" "$to"
     moveTo "$from/*PDF" "$to"
 }
 
-moveConfigs(){
+moveConfigs() {
     from=$1
     to=$2
     moveTo "$from/*xml" "$to"
@@ -108,7 +112,7 @@ moveConfigs(){
     moveTo "$from/*.properties" "$to"
 }
 
-moveVideos(){
+moveVideos() {
     from=$1
     to=$2
     moveTo "$from/*MOV" "$to"
@@ -116,29 +120,30 @@ moveVideos(){
     moveTo "$from/*mp4" "$to"
     moveTo "$from/*MP4" "$to"
 }
-moveMSDocs(){
+
+moveMSDocs() {
     from=$1
     to=$2
     moveTo "$from/*docx" "$to"
     moveTo "$from/*txt" "$to"
     moveTo "$from/*csv" "$to"
-    moveTo "$from/*xlsx" "$to"    
+    moveTo "$from/*xlsx" "$to"
     moveTo "$from/*doc" "$to"
     moveTo "$from/*pptx" "$to"
 }
 
-moveZIPs(){
+moveZIPs() {
     from=$1
     to=$2
     moveTo "$from/*zip" "$to"
     moveTo "$from/*ZIP" "$to"
 }
 
-main(){
+main() {
     echo "Cleaning in progress..."
     cleanDesktop
     cleanDownloads
-    # cleaning 
+    # cleaning
     echo "Cleaning done!"
 }
 
