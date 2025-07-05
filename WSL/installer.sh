@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR=$(dirname "$0")
-
+echo "SCRIPT_DIR=$SCRIPT_DIR"
 # Function to add profile line if it doesn't exist
 add_profile_line() {
     local profile_file="$1"
@@ -24,4 +24,3 @@ add_profile_line() {
     # Add Bash Profile line
     add_profile_line ~/.bashrc bash_profile
 )
-
