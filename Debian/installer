@@ -8,9 +8,8 @@ add_profile_line() {
     if grep -q "\bsource \$HOME/Projects/bash_scripts/Debian/$profile_name\b" "$profile_file"; then
         echo "$profile_name Profile exists in $profile_file"
     else
-        echo "Adding line to $profile_file"
         echo "source \$HOME/Projects/bash_scripts/Debian/$profile_name" >>"$profile_file"
-        echo "Line added successfully"
+        echo "Added $profile_name in $profile_file successfully"
     fi
 }
 
