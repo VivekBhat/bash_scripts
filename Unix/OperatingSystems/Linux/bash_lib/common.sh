@@ -103,7 +103,7 @@ check_oh_my_bash() {
         if [[ "$install_choice" =~ ^[Yy]$ ]]; then
             # Install Oh My Bash
             echo "Installing Oh My Bash..."
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+            bash -c "$(wget https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh -O -)"
             echo "Oh My Bash has been installed."
         else
             echo "Skipping Oh My Bash installation."
