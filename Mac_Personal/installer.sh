@@ -1,0 +1,2 @@
+scriptsFolder=$(pwd)
+code $scriptsFolder
