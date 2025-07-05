@@ -11,5 +11,5 @@ mount_gl(){
     # create link to this folder from Drive to WSL: /mnt/g/My Drive/Documents/_Vivek/School/05_MIT_ADSP/Resources
     mkdir -p /mnt/g/My\ Drive/Documents/_Vivek/School/05_MIT_ADSP/Resources
     ln -s /mnt/g/My\ Drive/Documents/_Vivek/School/05_MIT_ADSP/Resources /home/vivekbhat/Projects/private/GL/GoogleDriveResources
-    code /home/vivekbhat/Projects/private/GL/GoogleDriveResources
+    code /home/vivekbhat/Projects/private/GL
 }
