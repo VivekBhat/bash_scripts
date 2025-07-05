@@ -2,6 +2,10 @@
 
 ProfileVersion="2.1.0"
 
+# This tells Python not to prepend (env) to your prompt when activating a virtual environment. 
+# Oh My Bash will still show the environment name using its own formatting.
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+
 # Function to add profile line if it doesn't exist
 function add_profile_line() {
     local profile_file="$1"
