@@ -2,6 +2,7 @@
 WSL_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 OS_FOLDER=$(dirname "$WSL_SCRIPT_DIR")
 BASH_SCRIPTS_FOLDER=$(dirname "$OS_FOLDER")
+ALL_SCRIPTS_FOLDER=$(dirname "$BASH_SCRIPTS_FOLDER")
 PROJECTS_FOLDER="$HOME/Projects"
 
 LINUX_SCRIPTS_FOLDER=$OS_FOLDER/Linux
