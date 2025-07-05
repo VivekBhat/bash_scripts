@@ -1,0 +1,106 @@
+autoload -U compinit
+compinit
+
+setopt COMPLETE_IN_WORD
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt NO_BEEP
+
+# export PATH=/apollo/env/eclipse-4.2/bin:$PATH
+# export PATH=/apollo/env/DOPETools/bin:$PATH
+
+alias zshrc='code ~/.zshrc'
+alias ws='cd ~/workplace'
+
+function dice-review() {
+    COMMIT_MSG=$(git log -1 --pretty=%B)
+
+    NEW_DRY_RUN=$(brazil ws --dryrun | grep 'https://build.amazon.com')
+    COMMIT_MSG=$(echo $COMMIT_MSG | sed "s|DRY RUN :.*|DRY RUN : $NEW_DRY_RUN|")
+    git commit --amend -m $COMMIT_MSG
+
+    PEOPLE=$(echo $COMMIT_MSG | grep REVIEWERS | sed "s|REVIEWERS : ||")
+    post-review -u dice -i $PEOPLE
+}
+
+function dice-cr() {
+    COMMIT_MSG=$(git log -1 --pretty=%B)
+
+    NEW_DRY_RUN=$(brazil ws --dryrun | grep 'https://build.amazon.com')
+    COMMIT_MSG=$(echo $COMMIT_MSG | sed "s|DRY RUN :.*|DRY RUN : $NEW_DRY_RUN|")
+    git commit --amend -m $COMMIT_MSG
+
+    CR_DESCRIPTION=$(echo $COMMIT_MSG | sed "1 s|.*|\*\*&\*\*|" | sed "s|^[A-Z].*|\* &|g")
+
+    PEOPLE=$(echo $COMMIT_MSG | grep REVIEWERS | sed "s|REVIEWERS : ||")
+    REVIEWERS=$(echo $PEOPLE | sed "s|, |:0,|g" | sed "s|.*|TEAM:DiCE-PW:1,&:0|")
+
+    cr --description $CR_DESCRIPTION --reviewers $REVIEWERS
+}
+
+function uploadFruitsResultsToS3() {
+    export fileName=$(find . | grep "_runReport" | cut -c3-27)
+    sed -i "s/runReport.txt/${fileName}_runReport.txt/g" fruitsUi.html
+    cp fruitsUi.html ${fileName}_fruitsUi.html
+    s3put ${fileName}_runReport.txt
+    s3put ${fileName}_fruitsUi.html
+}
+alias frs3=uploadFruitsResultsToS3
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+alias ga='git add -u && gs'
+alias gc='git commit'
+alias gca='git commit --amend'
+alias gcan='git commit --amend --no-edit'
+alias gd='git diff'
+alias gl='git log'
+alias gs='git status'
+
+
+alias bb=brazil-build
+alias bba='brazil-build apollo-pkg'
+alias bre='brazil-runtime-exec'
+alias brc='brazil-recursive-cmd'
+alias bws='brazil ws'
+alias bwsuse='bws use --gitMode -p'
+alias bwscreate='bws create -n'
+alias brc=brazil-recursive-cmd
+alias bbr='brc brazil-build'
+alias bball='brc --allPackages'
+alias bbb='brc --allPackages brazil-build'
+alias bbra='bbr apollo-pkg'
+
+# alias bb='brazil-build | tee out'
+# alias bba='brazil-build apollo-pkg | tee out'
+# alias bbb='brazil-build build | tee out'
+# alias bbc='brazil-build clean | tee out'
+# alias bbi='brazil-build test-integration-assert | tee out'
+# alias bbr='brazil-build release | tee out'
+# alias bbs='brazil-build server | tee out'
+# alias bbt='brazil-build test | tee out'
+
+alias dryrun='brazil workspace --dryrun'
+
+alias sshenv-devo="sshenv --ssh 'ssh -F /dev/null'"
+
+alias ff='firefox'
+
+alias apollohc='/apollo/bin/apolloHostControl'
+alias apolloa='/apollo/bin/apolloHostControl --status Active'
+alias apollod='/apollo/bin/apolloHostControl --status ShutDown'
+
+alias tools-cn='sshenv DOPETools/CN -a'
+alias tools-eu='sshenv DOPETools/EU -a'
+alias tools-fe='sshenv DOPETools/FE -a'
+alias tools-na='sshenv DOPETools/NA -a'
+  
+alias timber-na='sshenv TimberFS/IAD/DiCE-a'
+alias timber-eu='sshenv TimberFS/DUB/DiCE-a'
+alias timber-fe='sshenv TimberFS/PDX/DiCE -a'
+alias timber-cn='sshenv TimberFS/PEK/DiCE -a'
+alias timber-devo='sshenv TimberFS/PDX/DiCE -a'
