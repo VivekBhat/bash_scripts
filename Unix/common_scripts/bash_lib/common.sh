@@ -3,7 +3,7 @@
 ProfileVersion="2.1.0"
 
 # Function to add profile line if it doesn't exist
-add_profile_line() {
+function add_profile_line() {
     local profile_file="$1"
     local profile_name="$2"
     local profile_str="source $profile_name"
@@ -144,6 +144,31 @@ install_wslu() {
     echo "deb [signed-by=/usr/share/keyrings/wslu-archive-keyring.pgp] https://pkg.wslutiliti.es/debian \
 $(. /etc/os-release && echo "$VERSION_CODENAME") main" | sudo tee /etc/apt/sources.list.d/wslu.list
 
-    sudo apt update  -y
-    sudo apt install wslu  -y
+    sudo apt update -y
+    sudo apt install wslu -y
+}
+
+check_and_install_zsh() {
+    # Check if zsh is installed
+    if command -v zsh >/dev/null 2>&1; then
+        echo "✅ zsh is already installed: $(which zsh)"
+    else
+        echo "⏳ zsh is not installed. Installing zsh using Homebrew..."
+
+        # Check if Homebrew is installed
+        if ! command -v brew >/dev/null 2>&1; then
+            echo "❌ Homebrew is not installed. Please install Homebrew first: https://brew.sh/"
+            return 1
+        fi
+
+        # Install zsh
+        brew install zsh
+
+        if command -v zsh >/dev/null 2>&1; then
+            echo "✅ zsh has been successfully installed: $(which zsh)"
+        else
+            echo "❌ zsh installation failed."
+            return 1
+        fi
+    fi
 }
