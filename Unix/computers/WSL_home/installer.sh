@@ -3,8 +3,6 @@
 # First run the Unix/installer.sh to install in WSL #
 #####################################################
 
-WSL_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-
 # SCRIPT_DIR=$(dirname "$0")
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -14,4 +12,4 @@ check_oh_my_bash
 check_github_desktop_automatic_update
 
 # Add Bash Profile line
-add_profile_line ~/.bashrc $WSL_SCRIPT_DIR/bash_profile
+add_profile_line ~/.bashrc $SCRIPT_DIR/bash_profile
