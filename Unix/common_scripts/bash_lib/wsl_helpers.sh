@@ -19,6 +19,7 @@ mount_mit_adsp() {
 
     code /home/vivekbhat/Projects/private/mit_adsp  # Open project in VS Code
 }
+
 delete_zone_files() {
     local recursive=false
     local target_directory=""
