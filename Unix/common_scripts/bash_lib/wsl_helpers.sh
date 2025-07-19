@@ -6,10 +6,16 @@ mount_g() {
     sudo mount -t drvfs G: /mnt/g
 }
 
-mount_gl() {
+mount_mit_adsp() {
     mount_g
-    # create link to this folder from Drive to WSL: /mnt/g/My Drive/Documents/_Vivek/School/05_MIT_ADSP/Resources
-    mkdir -p /mnt/g/My\ Drive/Documents/_Vivek/School/05_MIT_ADSP/Resources
-    ln -s /mnt/g/My\ Drive/Documents/_Vivek/School/05_MIT_ADSP/Resources /home/vivekbhat/Projects/private/GL/GoogleDriveResources
-    code /home/vivekbhat/Projects/private/GL
+
+    tgt="/mnt/g/My Drive/Documents/_Vivek/School/05_MIT_ADSP/Resources"
+    lnk="/home/vivekbhat/Projects/private/mit_adsp/GoogleDriveResources"
+
+    mkdir -p "$tgt"
+
+    # Create or update the symlink if it doesn't exist or is incorrect
+    [ -L "$lnk" ] && [ "$(readlink "$lnk")" = "$tgt" ] || ln -sf "$tgt" "$lnk"
+
+    code /home/vivekbhat/Projects/private/mit_adsp  # Open project in VS Code
 }
