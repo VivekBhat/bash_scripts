@@ -5,21 +5,10 @@ This bash profile is a helper script for me
 
 ## New OS Setup
 
-* Decide a `$myHome`
-* Create a folder called `Projects` to add projects in this `myHome` 
-* Clone this repo in the `Projects` folder
-* git clone https://github.com/VivekBhat/bash_scripts.git
-
-Prereqs:
-1. This project should be cloned only in the `$Home/Projects/` folder
-
-### Installer
-Run the `installer` to replace your bash_profile with this cool profile or run the following in terminal/wsl:
-```
-cp -f bash_profile ~/.bash_profile
-chmod +x ~/.bash_profile
-source ~/.bash_profile
-echo "Bash Profile Version: $bashProfileVersion"
+```bash
+export PROJECTS_FOLDER="$HOME/Projects"
+git clone git@github.com:VivekBhat/bash_scripts.git $PROJECTS_FOLDER/bash_scripts
+$PROJECTS_FOLDER/bash_scripts/installer.sh
 ```
 
 ### Troubleshoot

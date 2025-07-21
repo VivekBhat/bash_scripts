@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export UNIX_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+export PROJECTS_FOLDER="$HOME/Projects"
 
-export UNIX_SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+export UNIX_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 # Define the directory containing the operating systems
 PC_DIR="$UNIX_SCRIPT_DIR/computers"
