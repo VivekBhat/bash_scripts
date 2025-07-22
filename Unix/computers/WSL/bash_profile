@@ -7,8 +7,6 @@ UNIX_DIR=$(dirname "$COMPUTERS_DIR")
 # Needed for prof method that opens this bash project
 ALL_SCRIPTS_FOLDER=$(dirname "$UNIX_DIR")
 
-PROJECTS_FOLDER="$HOME/Projects"
-
 COMMON_SCRIPTS_FOLDER=$UNIX_DIR/common_scripts
 
 export VIRTUAL_ENV_DISABLE_PROMPT=true
@@ -23,4 +21,4 @@ source $COMMON_SCRIPTS_FOLDER/work/backup_owaiops.sh
 export BROWSER=wslview
 
 # Cleanup
-$UNIX_DIR/cleanup/wsl_cleanup.sh "/mnt/c/Users/vbhat01/OneDrive - Echostar Operating L.L.C"
+# $UNIX_DIR/cleanup/wsl_cleanup.sh "/mnt/c/Users/vbhat01/OneDrive - Echostar Operating L.L.C"

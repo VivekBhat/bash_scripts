@@ -4,8 +4,6 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 COMPUTERS_DIR=$(dirname "$SCRIPT_DIR")
 UNIX_DIR=$(dirname "$COMPUTERS_DIR")
 
-PROJECTS_FOLDER="$HOME/Projects"
-
 COMMON_SCRIPTS_FOLDER=$UNIX_DIR/common_scripts
 
 source $COMMON_SCRIPTS_FOLDER/bash_lib/common.sh

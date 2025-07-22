@@ -71,5 +71,11 @@ delete_zone_files() {
         rm -f "$file"
     done
 
+    # Find and delete files ending with ':Avecto.Zone.Identifier'
+    find "$target_directory" $find_depth_option -type f -name "*:Avecto.Zone.Identifier" -print0 | while IFS= read -r -d $'\0' file; do
+        echo "Deleting: $file"
+        rm -f "$file"
+    done
+
     echo "Deletion process complete."
 }

@@ -2,6 +2,17 @@
 
 ProfileVersion="2.1.0"
 
+export PROJECTS_FOLDER="$HOME/Projects"
+export PVT_REPO_DIR="$PROJECTS_FOLDER/private"
+export BASH_SCRIPTS="$PVT_REPO_DIR/bash_scripts"
+export UNIX_SCRIPT_DIR="$BASH_SCRIPTS/Unix"
+
+function pvt() {
+    mkdir -p $PVT_REPO_DIR
+    cd $PVT_REPO_DIR
+    trace "Moved to OneWeb AIOps project folder :) "
+    ll
+}
 # Function to add profile line if it doesn't exist
 function add_profile_line() {
     local profile_file="$1"
