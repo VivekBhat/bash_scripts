@@ -1,75 +1,105 @@
 #!/bin/bash
+
+export AWS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
+
 function refresh-ecr-login() {
     aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 181148949657.dkr.ecr.eu-west-2.amazonaws.com
 }
 
-function refresh-maven-token() {
-    # Define the file where the token and expiration timestamp will be stored
-    TOKEN_FILE=~/.maven_token_info
+# This function retrieves and caches a CodeArtifact token.
+# It checks if a valid token exists in a file, and only fetches a new one if expired or missing.
+get_codeartifact_token() {
+    local domain=$1
+    local domain_owner=$2
+    local region=$3
+    local token_file=$4
 
-    # Initialize variables
-    CURRENT_TIME=$(date +%s)
-    STORED_AUTH_TOKEN=""
-    TOKEN_EXPIRATION=""
+    local current_time=$(date +%s)
+    local stored_token=""
+    local token_expiration=""
 
-    # Check if the token file exists
-    if [[ -f $TOKEN_FILE ]]; then
-        # Extract token and expiration time from the file
-        STORED_AUTH_TOKEN=$(grep 'authorizationToken' $TOKEN_FILE | cut -d'=' -f2)
-        TOKEN_EXPIRATION=$(grep 'expiration' $TOKEN_FILE | cut -d'=' -f2)
+    # Check if token file exists
+    if [[ -f $token_file ]]; then
+        # Read token and expiration from file
+        stored_token=$(grep 'authorizationToken' "$token_file" | cut -d'=' -f2)
+        token_expiration=$(grep 'expiration' "$token_file" | cut -d'=' -f2)
 
-        # echo "STORED_AUTH_TOKEN=$STORED_AUTH_TOKEN"
-        # echo "TOKEN_EXPIRATION=$TOKEN_EXPIRATION"
-
-        # Validate the token's expiration
-        if [[ -z $STORED_AUTH_TOKEN || $CURRENT_TIME -ge $TOKEN_EXPIRATION ]]; then
-            echo "Stored CodeArtifact token is expired or invalid. Fetching a new one..."
-            STORED_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
-                --domain hughes \
-                --domain-owner 181148949657 \
-                --region eu-west-2 \
+        # If token is missing or expired, fetch a new one
+        if [[ -z $stored_token || $current_time -ge $token_expiration ]]; then
+            echo "Token expired or invalid. Fetching new token..."
+            stored_token=$(aws codeartifact get-authorization-token \
+                --domain "$domain" \
+                --domain-owner "$domain_owner" \
+                --region "$region" \
                 --query authorizationToken \
                 --output text)
+            token_expiration=$((current_time + 43200)) # Token valid for 12 hours
 
-            # Update the token file with the new token and expiration time
-            TOKEN_EXPIRATION=$(($CURRENT_TIME + 43200)) # 12 hours
-            # remove the existing file
-            rm -rf $TOKEN_FILE
-            {
-                echo "authorizationToken=$STORED_AUTH_TOKEN"
-                echo "expiration=$TOKEN_EXPIRATION"
-            } >$TOKEN_FILE
+            # Save new token and expiration to file
+            echo "authorizationToken=$stored_token" > "$token_file"
+            echo "expiration=$token_expiration" >> "$token_file"
         else
-            echo "Stored CodeArtifact token is valid."
+            echo "Using cached token."
         fi
     else
-        # If the file doesn’t exist, fetch a new token
-        echo "Token file does not exist. Fetching a new CodeArtifact token..."
-        STORED_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
-            --domain hughes \
-            --domain-owner 181148949657 \
-            --region eu-west-2 \
+        # If token file doesn't exist, fetch and save a new token
+        echo "Token file not found. Fetching new token..."
+        stored_token=$(aws codeartifact get-authorization-token \
+            --domain "$domain" \
+            --domain-owner "$domain_owner" \
+            --region "$region" \
             --query authorizationToken \
             --output text)
+        token_expiration=$((current_time + 43200))
 
-        # Save the new token and expiration time
-        TOKEN_EXPIRATION=$(($CURRENT_TIME + 43200)) # 12 hours
-        {
-            echo "authorizationToken=$STORED_AUTH_TOKEN"
-            echo "expiration=$TOKEN_EXPIRATION"
-        } >$TOKEN_FILE
+        echo "authorizationToken=$stored_token" > "$token_file"
+        echo "expiration=$token_expiration" >> "$token_file"
     fi
 
-    # Check if the environment variable is set
+    # Return the token
+    echo "$stored_token"
+}
+
+# Refreshes the Maven CodeArtifact token if needed and exports it to the environment.
+refresh_maven_token() {
+    local token_file=~/.maven_token_info
+    local domain="hughes"
+    local domain_owner="181148949657"
+    local region="eu-west-2"
+
+    # Get the token using the helper function
+    local token=$(get_codeartifact_token "$domain" "$domain_owner" "$region" "$token_file")
+
+    # Export the token if not already set
     if [[ -z $CODEARTIFACT_AUTH_TOKEN ]]; then
-        export CODEARTIFACT_AUTH_TOKEN=$STORED_AUTH_TOKEN
-        echo "CODEARTIFACT_AUTH_TOKEN has been exported to the environment."
+        export CODEARTIFACT_AUTH_TOKEN="$token"
+        echo "CODEARTIFACT_AUTH_TOKEN exported."
     else
-        echo "CODEARTIFACT_AUTH_TOKEN is already set in the environment."
+        echo "CODEARTIFACT_AUTH_TOKEN already set."
     fi
 }
 
-refresh-maven-token &>/dev/null
+# Refreshes the PyPI CodeArtifact token if needed and logs in using pip and twine.
+refresh_pypi() {
+    local token_file=~/.pypi_token_info
+    local domain="hughes"
+    local domain_owner="181148949657"
+    local region="eu-west-2"
+    local repository="pypi-store"
+
+    # Get the token using the helper function
+    local token=$(get_codeartifact_token "$domain" "$domain_owner" "$region" "$token_file")
+
+    # Use the token to log in with pip and twine
+    for tool in pip twine; do
+        aws codeartifact login \
+            --tool "$tool" \
+            --domain "$domain" \
+            --domain-owner "$domain_owner" \
+            --repository "$repository"
+    done
+}
+
 
 function set-aws-profile() {
     local profile=${1:-dev}
@@ -86,8 +116,10 @@ function refresh-aws() {
     trace "Updated AWS SSO login"
     refresh-ecr-login &>/dev/null
     trace "Updated docker login"
-    refresh-maven-token &>/dev/null
+    refresh_maven_token &>/dev/null
     trace "Updated maven token"
+    refresh_pypi &>/dev/null
+    trace "Updated pypi token"
 }
 
 alias aws-kubectl-update='aws eks update-kubeconfig --region eu-west-2 --name insightalytics'
@@ -134,4 +166,6 @@ function sort_cloudwatch_dashboard_json() {
     fi
 }
 
-export AWS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
+
+# refresh_maven_token &>/dev/null
+# refresh_pypi &>/dev/null
