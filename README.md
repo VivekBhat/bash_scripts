@@ -8,7 +8,7 @@ This bash profile is a helper script for me
 ```bash
 export PROJECTS_FOLDER="$HOME/Projects"
 git clone git@github.com:VivekBhat/bash_scripts.git $PROJECTS_FOLDER/bash_scripts
-$PROJECTS_FOLDER/bash_scripts/installer.sh
+$PROJECTS_FOLDER/private/bash_scripts/Unix/installer.sh
 ```
 
 ### Troubleshoot
