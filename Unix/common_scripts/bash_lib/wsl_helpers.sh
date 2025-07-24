@@ -20,6 +20,20 @@ mount_mit_adsp() {
     code /home/vivekbhat/Projects/private/mit_adsp  # Open project in VS Code
 }
 
+mount_gl() {
+    mount_g
+
+    tgt="/mnt/g/My Drive/GL"
+    lnk="/home/vivekbhat/Projects/private/mit_adsp/GoogleDriveResources"
+
+    mkdir -p "$tgt"
+
+    # Create or update the symlink if it doesn't exist or is incorrect
+    [ -L "$lnk" ] && [ "$(readlink "$lnk")" = "$tgt" ] || ln -sf "$tgt" "$lnk"
+
+    code /home/vivekbhat/Projects/private/mit_adsp  # Open project in VS Code
+}
+
 delete_zone_files() {
     local recursive=false
     local target_directory=""
