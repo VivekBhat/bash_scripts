@@ -1,10 +1,10 @@
 #!/bin/bash
 # Run the Unix/installer.sh to install in WSL
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-COMPUTERS_DIR=$(dirname "$SCRIPT_DIR")
-UNIX_DIR=$(dirname "$COMPUTERS_DIR")
-
-COMMON_SCRIPTS_FOLDER=$UNIX_DIR/common_scripts
+export PROJECTS_FOLDER="$HOME/Projects"
+export PVT_REPO_DIR="$PROJECTS_FOLDER/private"
+export BASH_SCRIPTS="$PVT_REPO_DIR/bash_scripts"
+export UNIX_SCRIPT_DIR="$BASH_SCRIPTS/Unix"
+export COMMON_SCRIPTS_FOLDER="$UNIX_SCRIPT_DIR/common_scripts"
 
 source $COMMON_SCRIPTS_FOLDER/bash_lib/common.sh
 source $COMMON_SCRIPTS_FOLDER/bash_lib/git_helpers.sh
@@ -13,4 +13,3 @@ source $COMMON_SCRIPTS_FOLDER/work/hughes.sh
 source $COMMON_SCRIPTS_FOLDER/work/aws_helpers.sh
 source $COMMON_SCRIPTS_FOLDER/work/backup_owaiops.sh
 
-export BROWSER=wslview

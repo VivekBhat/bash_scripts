@@ -7,6 +7,11 @@ export PVT_REPO_DIR="$PROJECTS_FOLDER/private"
 export BASH_SCRIPTS="$PVT_REPO_DIR/bash_scripts"
 export UNIX_SCRIPT_DIR="$BASH_SCRIPTS/Unix"
 
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+
+# Needed for wslview to open links in the default browser
+export BROWSER=wslview
+
 function pvt() {
     mkdir -p $PVT_REPO_DIR
     cd $PVT_REPO_DIR
@@ -78,7 +83,7 @@ openProjects() {
 prof() {
     trace "Opening Visual Studio Code to edit the bash profile"
     (
-        code $ALL_SCRIPTS_FOLDER
+        code $BASH_SCRIPTS
     )
 }
 

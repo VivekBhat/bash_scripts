@@ -9,16 +9,12 @@ ALL_SCRIPTS_FOLDER=$(dirname "$UNIX_DIR")
 
 COMMON_SCRIPTS_FOLDER=$UNIX_DIR/common_scripts
 
-export VIRTUAL_ENV_DISABLE_PROMPT=true
-
 source $COMMON_SCRIPTS_FOLDER/bash_lib/common.sh
 source $COMMON_SCRIPTS_FOLDER/bash_lib/git_helpers.sh
 source $COMMON_SCRIPTS_FOLDER/bash_lib/wsl_helpers.sh
 source $COMMON_SCRIPTS_FOLDER/work/hughes.sh
 source $COMMON_SCRIPTS_FOLDER/work/aws_helpers.sh
 source $COMMON_SCRIPTS_FOLDER/work/backup_owaiops.sh
-
-export BROWSER=wslview
 
 # Cleanup
 # $UNIX_DIR/cleanup/wsl_cleanup.sh "/mnt/c/Users/vbhat01/OneDrive - Echostar Operating L.L.C"
