@@ -12,6 +12,7 @@ source $COMMON_SCRIPTS_FOLDER/bash_lib/wsl_helpers.sh
 source $COMMON_SCRIPTS_FOLDER/work/hughes.sh
 source $COMMON_SCRIPTS_FOLDER/work/set_work_env.sh
 source $COMMON_SCRIPTS_FOLDER/work/aws_helpers.sh
+source $COMMON_SCRIPTS_FOLDER/work/aws_helpers_mark.sh
 source $COMMON_SCRIPTS_FOLDER/work/backup_owaiops.sh
 
 # Cleanup
