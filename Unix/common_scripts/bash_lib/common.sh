@@ -191,7 +191,7 @@ check_and_install_zsh() {
 function pyvenv_here() {
     folder_name=$(basename "$(pwd)")
     echo folder=$folder_name
-    venv_path="$(pwd)/.$folder_name-venv"
+    venv_path="$HOME/.virtualenvs/$folder_name"
     echo venv_path=$venv_path
     if [ ! -d "$venv_path" ]; then
         echo "Creating virtual environment for $folder_name..."
