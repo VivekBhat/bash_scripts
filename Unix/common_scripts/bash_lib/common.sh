@@ -201,3 +201,5 @@ function pyvenv_here() {
     source "$venv_path/bin/activate"
     echo "Activated virtual environment for $folder_name."
 }
+
+alias q=kiro-cli
