@@ -21,8 +21,8 @@ get_codeartifact_token() {
     # Check if token file exists
     if [[ -f $token_file ]]; then
         # Read token and expiration from file
-        stored_token=$(grep 'authorizationToken' "$token_file" | cut -d'=' -f2)
-        token_expiration=$(grep 'expiration' "$token_file" | cut -d'=' -f2)
+        stored_token=$(grep '^authorizationToken=' "$token_file" | cut -d'=' -f2-)
+        token_expiration=$(grep '^expiration=' "$token_file" | cut -d'=' -f2)
 
         # If token is missing or expired, fetch a new one
         if [[ -z $stored_token || $current_time -ge $token_expiration ]]; then
@@ -91,13 +91,9 @@ refresh_pypi() {
     local token=$(get_codeartifact_token "$domain" "$domain_owner" "$region" "$token_file")
 
     # Use the token to log in with pip and twine
-    for tool in pip twine; do
-        aws codeartifact login \
-            --tool "$tool" \
-            --domain "$domain" \
-            --domain-owner "$domain_owner" \
-            --repository "$repository"
-    done
+    echo -e "pip\ntwine" | parallel aws codeartifact login --tool {} --domain $domain --domain-owner $domain_owner --repository $repository
+
+    export UV_INDEX_URL="https://aws:${token}@${domain}-${domain_owner}.d.codeartifact.${region}.amazonaws.com/pypi/${repository}/simple/"
 }
 
 

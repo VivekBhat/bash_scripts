@@ -23,5 +23,3 @@ function workon() {
     source $HOME/.virtualenvs/$1/bin/activate
     cd $REPO_DIR/$1
 }
-
-# setopt KSH_ARRAYS
