@@ -203,3 +203,5 @@ function pyvenv_here() {
 }
 
 alias q=kiro-cli
+export AMAZON_Q_SIGNIN_URL="https://d-90679c6623.awsapps.com/start"
+export AMAZON_Q_SIGNIN_REGION="us-east-1"
