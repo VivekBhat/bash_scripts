@@ -23,3 +23,5 @@ function workon() {
     source $HOME/.virtualenvs/$1/bin/activate
     cd $REPO_DIR/$1
 }
+
+source <(invoke --print-completion-script bash)
