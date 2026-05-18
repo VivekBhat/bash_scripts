@@ -24,4 +24,4 @@ function workon() {
     cd $REPO_DIR/$1
 }
 
-source <(invoke --print-completion-script bash)
+# source <(invoke --print-completion-script bash)
