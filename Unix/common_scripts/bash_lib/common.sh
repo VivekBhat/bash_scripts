@@ -15,8 +15,14 @@ export BROWSER=wslview
 function pvt() {
     mkdir -p $PVT_REPO_DIR
     cd $PVT_REPO_DIR
-    trace "Moved to OneWeb AIOps project folder :) "
+    trace "Moved to private folder :) "
     ll
+}
+
+function tmp() {
+    pvt > /dev/null
+    mkdir -p tmp
+    code tmp
 }
 # Function to add profile line if it doesn't exist
 function add_profile_line() {
