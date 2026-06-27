@@ -208,6 +208,12 @@ function pyvenv_here() {
     echo "Activated virtual environment for $folder_name."
 }
 
-alias q=kiro-cli
 export AMAZON_Q_SIGNIN_URL="https://d-90679c6623.awsapps.com/start"
 export AMAZON_Q_SIGNIN_REGION="us-east-1"
+
+q() {
+    if kiro-cli whoami 2>&1 | grep -q "Not logged in"; then
+        kiro-cli login --license pro --identity-provider "$AMAZON_Q_SIGNIN_URL" --region "$AMAZON_Q_SIGNIN_REGION"
+    fi
+    kiro-cli "$@"
+}
