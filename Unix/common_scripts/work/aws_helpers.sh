@@ -21,8 +21,8 @@ get_codeartifact_token() {
     # Check if token file exists
     if [[ -f $token_file ]]; then
         # Read token and expiration from file
-        stored_token=$(grep '^authorizationToken=' "$token_file" | cut -d'=' -f2-)
-        token_expiration=$(grep '^expiration=' "$token_file" | cut -d'=' -f2)
+        stored_token=$(grep '^authorizationToken=' "$token_file" | tail -1 | cut -d'=' -f2-)
+        token_expiration=$(grep '^expiration=' "$token_file" | tail -1 | cut -d'=' -f2)
 
         # If token is missing or expired, fetch a new one
         if [[ -z $stored_token || $current_time -ge $token_expiration ]]; then
@@ -36,7 +36,7 @@ get_codeartifact_token() {
             token_expiration=$((current_time + 43200)) # Token valid for 12 hours
 
             # Save new token and expiration to file
-            echo "authorizationToken=$stored_token" > "$token_file"
+            echo "authorizationToken=$stored_token" >| "$token_file"
             echo "expiration=$token_expiration" >> "$token_file"
         else
             echo "Using cached token."
@@ -52,7 +52,7 @@ get_codeartifact_token() {
             --output text)
         token_expiration=$((current_time + 43200))
 
-        echo "authorizationToken=$stored_token" > "$token_file"
+        echo "authorizationToken=$stored_token" >| "$token_file"
         echo "expiration=$token_expiration" >> "$token_file"
     fi
 
@@ -71,12 +71,8 @@ refresh_maven_token() {
     local token=$(get_codeartifact_token "$domain" "$domain_owner" "$region" "$token_file")
 
     # Export the token if not already set
-    if [[ -z $CODEARTIFACT_AUTH_TOKEN ]]; then
-        export CODEARTIFACT_AUTH_TOKEN="$token"
-        echo "CODEARTIFACT_AUTH_TOKEN exported."
-    else
-        echo "CODEARTIFACT_AUTH_TOKEN already set."
-    fi
+    export CODEARTIFACT_AUTH_TOKEN="$token"
+    echo "CODEARTIFACT_AUTH_TOKEN exported."
 }
 
 # Refreshes the PyPI CodeArtifact token if needed and logs in using pip and twine.
