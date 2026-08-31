@@ -1,0 +1,25 @@
+[default]
+sso_session = performance-hub
+sso_account_id = 181148949657
+sso_role_name = AWSAdministratorAccess
+region = eu-west-2
+output = json
+
+[profile dev]
+sso_session = performance-hub
+sso_account_id = 181148949657
+sso_role_name = AWSAdministratorAccess
+region = eu-west-2
+output = json
+
+[profile prod]
+sso_session = performance-hub
+sso_account_id = 772048276950
+sso_role_name = OW-EKS-Admin
+region = eu-west-2
+output = json
+
+[sso-session performance-hub]
+sso_start_url = https://oneweb-aws-sso.awsapps.com/start
+sso_region = us-east-1
+sso_registration_scopes = sso:account:access
