@@ -134,6 +134,12 @@ function connect-ec2() {
     aws ssm start-session --target $instance_id
 }
 
+# Sorts the widgets in a CloudWatch dashboard JSON file by position (y, then x) and writes the
+# result to <file>_sorted.json alongside the original. If a display and xclip are available, also
+# copies the sorted JSON to the clipboard.
+#
+# Usage: sort_cloudwatch_dashboard_json <path/to/dashboard.json>
+# Example: sort_cloudwatch_dashboard_json dev/service/config/dashboard.json
 function sort_cloudwatch_dashboard_json() {
     local json_file=$1
     local output_file="${json_file%.json}_sorted.json"
@@ -151,8 +157,15 @@ function sort_cloudwatch_dashboard_json() {
     if [[ $? -eq 0 ]]; then
         echo "Sorted JSON saved to $output_file"
 
-        cat $output_file | xclip -selection clipboard
-        echo "Copied the file to clipboard"
+        if [[ -n "$DISPLAY" ]] && command -v xclip &>/dev/null; then
+            if xclip -selection clipboard <"$output_file" 2>/dev/null; then
+                echo "Copied the file to clipboard"
+            else
+                echo "Could not copy to clipboard (xclip failed)."
+            fi
+        else
+            echo "No display available; skipping clipboard copy."
+        fi
     else
         echo "Failed to sort the JSON file."
     fi
