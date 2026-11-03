@@ -37,7 +37,7 @@ function workon ()
 
     # Check for local .venv
     if [[ ! -d "$venv_dir" ]]; then
-        read -p "No local virtual environment found at $venv_dir. Create it now? [Y/n] " yn
+        printf "%s" "No local virtual environment found at $venv_dir. Create it now? [Y/n] "; read yn
         case "$yn" in
             [nN]*)
                 echo "Aborted."
@@ -65,7 +65,7 @@ function workon ()
 
     # Handle requirements.txt if we just created the venv
     if [[ -f "requirements.txt" && $created -eq 1 ]]; then
-        read -p "requirements.txt found. Install dependencies? [Y/n] " yn
+        printf "%s" "requirements.txt found. Install dependencies? [Y/n] "; read yn
         case "$yn" in
             [nN]*)
                 echo "Skipping installation."

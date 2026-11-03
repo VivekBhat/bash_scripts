@@ -1,0 +1,33 @@
+#!/bin/zsh
+#####################################################################
+# Profile for the Attentive MacBook Pro (Apple Silicon, zsh)        #
+# Installed by Unix/computers/MBP_Attentive/installer.sh            #
+#####################################################################
+
+if [ "$(uname -s)" != "Darwin" ]; then
+    echo "MBP_Attentive profile is macOS only; skipping." >&2
+    return 0 2>/dev/null || exit 0
+fi
+
+# common.sh exports PROJECTS_FOLDER, PVT_REPO_DIR, BASH_SCRIPTS, UNIX_SCRIPT_DIR
+source "$HOME/Projects/private/bash_scripts/Unix/common_scripts/bash_lib/common.sh"
+COMMON_SCRIPTS_FOLDER=$UNIX_SCRIPT_DIR/common_scripts
+
+# Homebrew (Apple Silicon)
+if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+add_to_path "$HOME/.local/bin"
+
+# Allow bash-style `complete` used by pyvenv_helpers.sh
+if [ -n "$ZSH_VERSION" ]; then
+    autoload -Uz compinit bashcompinit
+    (( $+functions[compdef] )) || compinit
+    bashcompinit
+fi
+
+source "$COMMON_SCRIPTS_FOLDER/bash_lib/git_helpers.sh"
+source "$COMMON_SCRIPTS_FOLDER/bash_lib/pyvenv_helpers.sh"
+source "$COMMON_SCRIPTS_FOLDER/work/attentive.sh"
+
+alias src='source ~/.zshrc'

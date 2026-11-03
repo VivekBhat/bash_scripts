@@ -9,8 +9,10 @@ export UNIX_SCRIPT_DIR="$BASH_SCRIPTS/Unix"
 
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 
-# Needed for wslview to open links in the default browser
-export BROWSER=wslview
+# Needed for wslview to open links in the default browser (WSL only)
+if grep -qi microsoft /proc/version 2>/dev/null; then
+    export BROWSER=wslview
+fi
 
 function pvt() {
     mkdir -p $PVT_REPO_DIR
