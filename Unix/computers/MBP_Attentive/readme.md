@@ -17,7 +17,7 @@ The installer:
 ## What the profile loads
 
 - `common_scripts/bash_lib/common.sh`, `git_helpers.sh`, `pyvenv_helpers.sh`
-- `common_scripts/work/attentive.sh`: `attn`, `awsp <profile>`, `awsclear`, btr/kubectl aliases
+- `common_scripts/work/attentive.sh`: `am`, `attn`, `awsp <profile>`, `awsclear`, btr/kubectl aliases
 - `~/.attentive_local.sh` if present. Put anything sensitive there, never in this repo.
 
 ## Check startup time

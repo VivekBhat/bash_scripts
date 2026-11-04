@@ -26,6 +26,22 @@ function tmp() {
     mkdir -p tmp
     code tmp
 }
+
+#--------------------------------------
+# Move to the workspaces folder of the current work repo dir
+# REPO_DIR is set by the work script (e.g. work/attentive.sh)
+#--------------------------------------
+function ws() {
+    if [ -z "$REPO_DIR" ]; then
+        echo "REPO_DIR is not set; source a work script first." >&2
+        return 1
+    fi
+    local workspaces="$REPO_DIR/workspaces"
+    mkdir -p "$workspaces"
+    cd "$workspaces" || return 1
+    trace "Moved to workspaces folder :) "
+    ls -lh
+}
 # Function to add profile line if it doesn't exist
 function add_profile_line() {
     local profile_file="$1"

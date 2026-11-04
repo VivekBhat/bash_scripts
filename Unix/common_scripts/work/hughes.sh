@@ -11,12 +11,4 @@ function ow() {
     ll
 }
 
-function ws() {
-    local workspaces=$REPO_DIR/workspaces
-    mkdir -p $workspaces
-    cd $workspaces
-    trace "Moved to OneWeb AIOps Workspaces folder :) "
-    ll
-}
-
 # source <(invoke --print-completion-script bash)

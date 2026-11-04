@@ -11,11 +11,14 @@ fi
 export ATTN_REPO_DIR="$PROJECTS_FOLDER/attentive"
 export REPO_DIR="$ATTN_REPO_DIR"   # used by workon <repo>
 
-# Jump to work repos: `attn` or `attn <repo>`
-attn() {
+# Move to the Attentive projects folder: `am` or `am <repo>`
+am() {
     mkdir -p "$ATTN_REPO_DIR"
     cd "$ATTN_REPO_DIR/$1" || return 1
+    trace "Moved to Attentive Mobile project folder :) "
+    ls -lh
 }
+alias attn='am'
 
 # AWS: assume a Granted profile and export creds into this shell
 # Usage: awsp <profile-name>   (profiles live in ~/.aws/config)
