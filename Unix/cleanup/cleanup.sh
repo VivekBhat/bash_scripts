@@ -64,7 +64,7 @@ removeExecutables() {
 }
 
 removeShortcuts() {
-    rm -rf *.lnk
+    rm -rf $1/*.lnk
 }
 
 moveTo() {

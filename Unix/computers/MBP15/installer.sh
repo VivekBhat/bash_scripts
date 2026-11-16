@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(dirname "$0")
-source $UNIX_SCRIPT_DIR/common_scripts/bash_lib/common.sh
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/../../common_scripts/bash_lib/common.sh"
 
 check_and_install_zsh
 

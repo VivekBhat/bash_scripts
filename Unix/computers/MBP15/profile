@@ -1,24 +1,24 @@
-#!/bin/bash
-#####################################################
-# First run the Unix/installer.sh to install in WSL #
-#####################################################
-SCRIPT_DIR=$(dirname "$0")
-COMPUTERS_DIR=$(dirname "$SCRIPT_DIR")
-UNIX_DIR=$(dirname "$COMPUTERS_DIR")
-ALL_SCRIPTS_FOLDER=$(dirname "$UNIX_DIR")
+#!/bin/zsh
+#####################################################################
+# Profile for the personal 15" MacBook Pro (Intel, zsh)             #
+# Installed by Unix/computers/MBP15/installer.sh                    #
+#####################################################################
 
-COMMON_SCRIPTS_FOLDER=$UNIX_DIR/common_scripts
+# common.sh exports PROJECTS_FOLDER, PVT_REPO_DIR, BASH_SCRIPTS, UNIX_SCRIPT_DIR
+source "$HOME/Projects/private/bash_scripts/Unix/common_scripts/bash_lib/common.sh"
+COMMON_SCRIPTS_FOLDER=$UNIX_SCRIPT_DIR/common_scripts
 
-PROJECTS_FOLDER="$HOME/Projects"
+source "$COMMON_SCRIPTS_FOLDER/bash_lib/mbp_helpers.sh"
+source "$COMMON_SCRIPTS_FOLDER/bash_lib/git_helpers.sh"
 
-source $COMMON_SCRIPTS_FOLDER/bash_lib/common.sh
-source $COMMON_SCRIPTS_FOLDER/bash_lib/mbp_helpers.sh
-source $COMMON_SCRIPTS_FOLDER/bash_lib/git_helpers.sh
-source $COMMON_SCRIPTS_FOLDER/work/hughes.sh
-source $COMMON_SCRIPTS_FOLDER/work/set_work_env.sh
-source $COMMON_SCRIPTS_FOLDER/work/aws_helpers.sh
-source $COMMON_SCRIPTS_FOLDER/work/backup_owaiops.sh
+# Old Hughes/OneWeb work setup: Linux-only paths, not needed on this Mac
+# source "$COMMON_SCRIPTS_FOLDER/work/hughes.sh"
+# source "$COMMON_SCRIPTS_FOLDER/work/set_work_env.sh"
+# source "$COMMON_SCRIPTS_FOLDER/work/aws_helpers.sh"
+# source "$COMMON_SCRIPTS_FOLDER/work/backup_owaiops.sh"
+
+# Only needed behind a corporate proxy
+# export REQUESTS_CA_BUNDLE="$HOME/.mac-ca-roots"
 
 # Run the cleanup script every time terminal is launched
-$UNIX_DIR/cleanup/cleanup.sh
-export REQUESTS_CA_BUNDLE="$HOME/.mac-ca-roots"
+"$UNIX_SCRIPT_DIR/cleanup/cleanup.sh"
